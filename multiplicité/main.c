@@ -6,9 +6,9 @@
 
 int main(){
 
-   int T[9] = {13,-1,7,16,-12,2,4,16,16};
-   int max = 0;
-   printf("%d - %d\n",multiplicite(T,9,&max),max );
+   int T[8] = {13,-1,7,16,-12,2,16,4};
+   int max;
+   printf("%d - %d\n",multiplicite(T,8,&max),max );
 
 
 }

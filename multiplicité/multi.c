@@ -8,11 +8,14 @@ int multiplicite(int *T, const int N, int *max){
    int j = N-1;
    int temp = 0;
    int occurence = 0;
-   int nbri = T[i];
-   int nbrj = T[j];
-   int maxi = T[i];
+   int nbri;
+   int nbrj;
+   int maxi;
+
 
    while (i <= j){
+      nbri = T[i];
+      nbrj = T[j];
 
      if (nbri > nbrj){
        temp = nbri;
@@ -22,21 +25,31 @@ int multiplicite(int *T, const int N, int *max){
        temp = nbrj;
      }//fin else
 
+     if (i ==0){
+         maxi = temp;
+         occurence = 1;
+      }
 
      if (maxi < temp){
        maxi = temp;
        occurence = 1;
      }//fin if max<temp
 
-     else if(maxi == temp){
+     else if((maxi == temp) && (i!=0)){
        occurence++;
      }//fin if ==
 
      i++;
      j--;
 
-   return occurence;
+
+
 
 
  }//fin while
+
+ (*max) = (*max)*2;
+ printf("%d\n",maxi );
+ return occurence;
+
 }//fin multiplicite
