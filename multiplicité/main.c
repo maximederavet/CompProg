@@ -5,7 +5,7 @@
 
 int main(){
 
-   int T[8] = {13,-1,7,16,-12,2,16,4};
+   int T[8] = {1,1,1,1,1,1,1,1};
    int max = 0;
    multiplicite(T,8,&max);
    printf("%d - %d\n",multiplicite(T,8,&max),max );
