@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "multi.h"
 
-
+//ta mere max der
 
 //salut
 
