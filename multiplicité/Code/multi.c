@@ -18,7 +18,7 @@ int multiplicite(int *T, const int N, int *max){
 
 
       ////Nombre le plus grand entre les deux valeurs actuelles
-      
+
       if (i!=j){
         if (nbri > nbrj){
           temp = nbri;
@@ -51,7 +51,7 @@ int multiplicite(int *T, const int N, int *max){
      }//fin if max<temp
 
 
-     if ((maxi == temp) && (i!=0)){//Si le nouveau nombre est égal, augmentation de l'occurence
+     else if ((maxi == temp) && (i!=0)){//Si le nouveau nombre est égal, augmentation de l'occurence
 
         if ((nbri == nbrj)&&(i!=j)) // si les deux valeurs sont égale et qu'on regarde deux valeur différente => (Occurence +2)  sinon occurence +1
            occurence += 2;
