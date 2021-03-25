@@ -1,6 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "multi.h"
+#include <assert.h>
 
 int multiplicite(int *T, const int N, int *max){
 
@@ -10,7 +9,7 @@ int multiplicite(int *T, const int N, int *max){
    int occurence = 0;
    int nbri;
    int nbrj;
-   int maxi;
+   int maxi = 0;
 
 
    while (i <= j){
@@ -48,8 +47,8 @@ int multiplicite(int *T, const int N, int *max){
 
  }//fin while
 
- (*max) = (*max)*2;
- printf("%d\n",maxi );
+ *max = maxi;
+
  return occurence;
 
 }//fin multiplicite
