@@ -71,8 +71,6 @@ int multiplicite(int *T, const int N, int *max){
 
 
 
-
-
    }//fin while
 
    *max = maxi;
