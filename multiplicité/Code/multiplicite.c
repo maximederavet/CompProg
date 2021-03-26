@@ -1,4 +1,4 @@
-#include "multi.h"
+#include "multiplicite.h"
 #include <assert.h>
 
 int multiplicite(int *T, const int N, int *max){
@@ -22,7 +22,7 @@ int multiplicite(int *T, const int N, int *max){
       nbrj = T[j];
 
 
-      ////Nombre le plus grand entre les deux valeurs actuelles
+      //Nombre le plus grand entre les deux valeurs actuelles
 
       if (i!=j){
          if (nbri > nbrj){
@@ -37,7 +37,7 @@ int multiplicite(int *T, const int N, int *max){
       temp = nbri;
 
 
-     ////Changement du maximum et du nombre d'occurence
+     //Changement du maximum et du nombre d'occurence
 
       if (i ==0){ //Premier tour de boucle
          maxi = temp;
