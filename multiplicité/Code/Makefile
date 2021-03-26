@@ -1,21 +1,21 @@
 CC=gcc
-CFLAGS=-W -Wall -ansi -pedantic
+CFLAGS=--std=c99 --pedantic -Wall -W -Wmissing-prototypes
 LDFLAGS=
 EXEC=multiplicite
 
 all: $(EXEC)
 
-multiplicite: multiplicite.o main.o
-    $(CC) -o $@ $^ $(LDFLAGS)
+multiplicite: multiplicite.o main-multiplicite.o
+	$(CC) -o $@ $^ $(LDFLAGS)
 
-multiplicite.o: multi.c
-    $(CC) -o $@ -c $< $(CFLAGS)
+multiplicite.o: multiplicite.c
+	$(CC) -o $@ -c $< $(CFLAGS)
 
-main.o: main.c multi.h
-    $(CC) -o $@ -c $< $(CFLAGS)
+main-multiplicite.o: main-multiplicite.c multiplicite.h
+	$(CC) -o $@ -c $< $(CFLAGS)
 
 clean:
-    rm -rf *.o
+	rm -rf *.o
 
 mrproper: clean
-    rm -rf $(EXEC)
+	rm -rf $(EXEC)
