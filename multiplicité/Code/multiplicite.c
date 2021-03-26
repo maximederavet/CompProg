@@ -6,8 +6,6 @@ int multiplicite(int *T, const int N, int *max){
    assert (N>0);
    assert (T!=0);
 
-
-
    int i = 0;
    int j = N-1;
    int temp = 0;
