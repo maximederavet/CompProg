@@ -78,8 +78,7 @@
 \newcommand{\NomUN}{Deravet}
 \newcommand{\PrenomDEUX}{Luca}
 \newcommand{\NomDEUX}{Matagne}
-% Décommentez ceci si vous voulez une table des matières :
-% \renewcommand{\tablemat}{\tableofcontents}
+\renewcommand{\tablemat}{\tableofcontents}
 
 %%%%%%%% ZONE PROTÉGÉE : MODIFIEZ UNE DES DIX PROCHAINES %%%%%%%%
 %%%%%%%%            LIGNES POUR PERDRE 2 PTS.            %%%%%%%%
@@ -95,6 +94,47 @@
 
 %%%%%%%%%%%%%%%% RAPPORT %%%%%%%%%%%%%%%
 % Écrivez votre rapport ci-dessous.
+
+
+\section{Formalisation du problème}
+
+
+
+
+
+
+\section{spécification du module "multiplicité"}
+
+\begin{lstlisting}[caption={Spécifications}]
+/**
+ * multiplicite
+ *
+ *  @pre : N >0, T est un tableau d'entier de taille
+ *
+ *  @post: max contient le maximum du tableau
+ *
+ *  @return: le nombre d'occurence de max
+ *
+**/
+
+
+int multiplicite(int *T, const int N, int *max);
+
+\end{lstlisting}
+
+
+
+\section{Nos Sous-Problèmes}
+
+\subsection{SP 1: Parcourir le tableau}
+
+
+
+
+\subsection{SP 2: }
+
+
+
 
 \section{Insérer du code Latex}
 
