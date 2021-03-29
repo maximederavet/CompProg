@@ -96,20 +96,13 @@
 % Écrivez votre rapport ci-dessous.
 
 
-\section{Formalisation du problème}
-
-
-
-
-
-
 \section{spécification du module "multiplicité"}
 
 \begin{lstlisting}[caption={Spécifications}]
 /**
  * multiplicite
  *
- *  @pre : N >0, T est un tableau d'entier de taille
+ *  @pre : N > 0, T est un tableau d'entier de taille
  *
  *  @post: max contient le maximum du tableau
  *
@@ -141,21 +134,161 @@ b = Maximum trouvé ||
 a = Éventuel maximum à trouver
 
 \flushleft
+\setlength{\parindent}{0.5cm}
 
 L'invariant formel qui découle de cet invariant graphique est naturellement en lien avec la notation de notre sou-problème(en début de sous-section), le voici:
 
 max=MaximumSSTab $\land$ $ 0 \le i \le j < N$
 
+Fonction de terminaison:
+
 \subsection{SP 2: Compter le nombre d'occurence du max}
 
+Il est important de comprendre que ce sous problème n'est pas la suite du premier mais est bl et bien inclus dans le premier sous-problème. On va donc faire attention à exécuter les instructions de ce sous problème À CHAQUE ITÉRATION DE NOTRE BOUCLE (dont l'invariant est rappelé dans  le SP1).
 
-
+Le principe va être de créer une variable "occurence" et d'incrémenter cette variable de 1 à chaque fois qu'un même maximum est détecté. Dans le cas ou un nouveau maximum est trouvé, cette variable est naturellement ramenée à 1.
 
 
 
 \section{Vérification de la complexité}
 
 
+
+
+
+\section{Code}
+\subsection{multiplicite.h}
+\begin{lstlisting}[caption={Header}]
+
+#ifndef __MULTI__
+#define __MULTI__
+
+/**
+ * multiplicite
+ *
+ *  @pre : N > 0, T est un tableau d'entier de taille
+ *
+ *  @post: max contient le maximum du tableau
+ *
+ *  @return: le nombre d'occurence de max
+ *
+**/
+
+
+int multiplicite(int *T, const int N, int *max);
+
+
+#endif
+
+
+\end{lstlisting}
+
+\subsection{main.c}
+\begin{lstlisting}[caption={Main}]
+
+#include <stdio.h>
+#include "multiplicite.h"
+
+
+
+int main(){
+
+   int T[10] = {16, 16,10, 16,160, 16, 16, 16, 16, 16};
+   int max = 0;
+   multiplicite(T,10,&max);
+   printf("%d - %d\n",multiplicite(T,10,&max),max );
+
+
+
+}
+
+\end{lstlisting}
+
+\newpage
+\subsection{multiplicite.c}
+\begin{lstlisting}[caption={multiplicite.c}]
+
+#include "multiplicite.h"
+#include <assert.h>
+
+int multiplicite(int *T, const int N, int *max){
+
+   assert (N>0);
+   assert (T!=0);
+
+   int i = 0;
+   int j = N-1;
+   int temp = 0;
+   int occurence = 0;
+   int nbri;
+   int nbrj;
+   int maxi;
+
+
+   while (i <= j){
+      nbri = T[i];
+      nbrj = T[j];
+
+
+      //Nombre le plus grand entre les deux valeurs actuelles
+
+      if (i!=j){
+         if (nbri > nbrj){
+            temp = nbri;
+         }//fin if i>j
+
+         else{
+            temp = nbrj;
+         }//fin else
+      }
+      else
+      temp = nbri;
+
+
+     //Changement du maximum et du nombre d'occurence
+
+      if (i ==0){ //Premier tour de boucle
+         maxi = temp;
+         if ((nbri == nbrj)&&(i!=j))
+            occurence = 2;
+         else
+            occurence = 1;
+      }//fin if i ==0
+
+      if (maxi < temp){ //si le nouveau nombre est plus grand, changement et reinitialisation de l'occurences
+         maxi = temp;
+         if ((nbri == nbrj)&&(i!=j)) // si les deux valeurs sont égale et qu'on regarde deux valeur différente => (Occurence ==2)  sinon occurence ==1
+            occurence = 2;
+         else
+            occurence = 1;
+      }//fin if max<temp
+
+
+      else if ((maxi == temp) && (i!=0)){//Si le nouveau nombre est égal, augmentation de l'occurence
+
+         if ((nbri == nbrj)&&(i!=j)) // si les deux valeurs sont égale et qu'on regarde deux valeur différente => (Occurence +2)  sinon occurence +1
+            occurence += 2;
+         else
+            occurence += 1;
+      }//fin if maxi == temp
+
+
+    //incrémentation des compteurs
+      i++;
+      j--;
+
+
+
+   }//fin while
+
+   *max = maxi;
+
+   return occurence;
+
+}//fin multiplicite
+
+
+\end{lstlisting}
 
 
 
