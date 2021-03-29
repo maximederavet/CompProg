@@ -140,11 +140,11 @@ L'invariant formel qui découle de cet invariant graphique est naturellement en 
 
 max=MaximumSSTab $\land$ $ 0 \le i \le j < N$
 
-Fonction de terminaison: j-i+1
+Fonction de terminaison: j-i
 
 \subsection{SP 2: Compter le nombre d'occurence du max}
 
-Il est important de comprendre que ce sous problème n'est pas la suite du premier mais est bl et bien inclus dans le premier sous-problème. On va donc faire attention à exécuter les instructions de ce sous problème À CHAQUE ITÉRATION DE NOTRE BOUCLE (dont l'invariant est rappelé dans  le SP1).
+Il est important de comprendre que ce sous problème n'est pas la suite du premier mais est bel et bien inclus dans le premier sous-problème. On va donc faire attention à exécuter les instructions de ce sous problème À CHAQUE ITÉRATION DE NOTRE BOUCLE (dont l'invariant est rappelé dans  le SP1).
 
 Le principe va être de créer une variable "occurence" et d'incrémenter cette variable de 1 à chaque fois qu'un même maximum est détecté. Dans le cas ou un nouveau maximum est trouvé, cette variable est naturellement ramenée à 1.
 
