@@ -126,16 +126,41 @@ int multiplicite(int *T, const int N, int *max);
 
 \section{Nos Sous-Problèmes}
 
-\subsection{SP 1: Parcourir le tableau}
+\subsection{SP 1: Obtenir le max du tableau}
+
+La notation du sous-problème consistant à obtenir le maximun du tableau est la suivante:
+MaximumSSTab(T,i,j,N)$ \equiv 0 \le i \le j < N$
+
+\bigskip
+Dans ce sous problème, nous allons introduire notre boucle while. Voci donc l'invariant de boucle qui nous a permis d'écrire notre code:
+
+\centering
+\includegraphics[scale=0.2]{loopMulti.png}
+
+b = Maximum trouvé ||
+a = Éventuel maximum à trouver
+
+\flushleft
+
+L'invariant formel qui découle de cet invariant graphique est naturellement en lien avec la notation de notre sou-problème(en début de sous-section), le voici:
+
+max=MaximumSSTab $\land$ $ 0 \le i \le j < N$
+
+\subsection{SP 2: Compter le nombre d'occurence du max}
 
 
 
 
-\subsection{SP 2: }
+
+
+\section{Vérification de la complexité}
 
 
 
 
+
+
+\newpage
 \section{Insérer du code Latex}
 
 \begin{lstlisting}[caption={Un programme tout simple}]
