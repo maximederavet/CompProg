@@ -72,7 +72,7 @@
 
 %%%%%%%%%%%%%%%%% TITRE %%%%%%%%%%%%%%%%
 % Complétez et décommentez les définitions de macros suivantes :
-\newcommand{\intitule}{Multiplicité INFO0947}
+\newcommand{\intitule}{Multiplicité}
 \newcommand{\GrNbr}{21}
 \newcommand{\PrenomUN}{Maxime}
 \newcommand{\NomUN}{Deravet}
@@ -152,8 +152,21 @@ Le principe va être de créer une variable "occurence" et d'incrémenter cette 
 
 \section{Vérification de la complexité}
 
+Pour ce programme, notre complexité est de l'ordre de N/2. Voici notre raisonnement pour arrivé à ce résultat.
+\bigskip
+T(multiplicité) = T(A) + t(B)
 
+où T(A) est la boucle while et T(B) est la seule instructionen dehors de la boucle
 
+= T(A) + 1
+
+= 1 + $\sum_{i = 0}^{N/2} (A_1 + A_2 + A_3 + A_4 + A_5)$
+
+où $A_1, A_2, A_3, A_4$ sont les instructions conditionnelles dans la boucle et $A_5$ est l'incrémentation du "i" et la décrémentation de "j".
+
+= 1 + $\sum_{i = 0}^{N/2} (1 + 1 + 1 + 1 + 2)$
+
+= 1 + N/2 $\in$ O(N/2)
 
 
 \section{Code}
@@ -204,7 +217,6 @@ int main(){
 
 \end{lstlisting}
 
-\newpage
 \subsection{multiplicite.c}
 \begin{lstlisting}[caption={multiplicite.c}]
 
@@ -292,66 +304,5 @@ int multiplicite(int *T, const int N, int *max){
 
 
 
-
-\newpage
-\section{Insérer du code Latex}
-
-\begin{lstlisting}[caption={Un programme tout simple}]
-int main(void)
-{
-	// Les commandes Latex sont permises dans les commentaires sur une ligne. Exemple : $x_i \leq a ^b$
-	printf("Bonjour tout le monde !");
-	/*
-	Dans les commentaires sur plusieurs lignes, elles doivent être entourées
-	de symboles définis par l'option « escapeinside » de \lstset
-	(>\coms{$\sum_{i = 1}^N 1 = N$}<)
-	La commande « \coms » permet de colorer correctement le code latex ajouté.
-	Les accents et tous les autres diacritiques sont permis : àÀçÇéÉèÈêÊœŒ...
-	*/
-	return 1; (>\label{code:ret}<)
-}
-\end{lstlisting}
-
-Il est possible de faire référence à la ligne \ref{code:ret} de l'extrait de code.
-
-\section{Dessiner un tableau}
-
-Comme mentionné sur le forum «~\emph{eCampus > Forum : Projets -- Informations générales > Thème : Dessine-moi un invariant !}~», il est possible de dessiner facilement des tableaux. Le résultat de l'exemple donné sur le forum eCampus est visible dans la figure \ref{fig:exemple}.
-
-\begin{figure}[!h]
-\centering
-\begin{tabular}{l|llr|ll|l}
- & 0 &  & \multicolumn{1}{r|}{i-1} & i &  & N \\ \cline{2-6}
-t: & \cellcolor[HTML]{FFCC67} & \cellcolor[HTML]{FFCC67}. > 0 & \cellcolor[HTML]{FFCC67} &  &  &  \\ \cline{2-6}
-\end{tabular}
-\caption{Voici le tableau de l'exemple}
-\label{fig:exemple}
-\end{figure}
-
-\section{Autres conseils}
-
-\subsection{Utilisez les bons opérateurs}
-
-Voir la table \ref{table:op}.
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{l c}
-Nom & Op \\
-\hline
-ET & $\land$ \\
-OU & $\lor$ \\
-Quantification universelle & $\forall$ \\
-Quantification existentielle & $\exists$ \\
-\end{tabular}
-\caption{Opérateurs les plus usuels en logique}
-\label{table:op}
-\end{table}
-
-\subsection{Trouver un symbole précis}
-
-Voir ce site : \url{http://detexify.kirelabs.org/classify.html}. Il suffit de dessiner le symbole dont vous avez besoin et le site trouvera (normalement) la bonne commande à taper (ainsi que le package à éventuellement inclure si besoin est).
-
-\subsection{N'oubliez pas de relire le résultat produit par la compilation}
 
 \end{document}
