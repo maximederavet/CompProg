@@ -5,13 +5,13 @@ EXEC=multiplicite
 
 all: $(EXEC)
 
-multiplicite: multiplicite.o multiplicite.o
+multiplicite: multiplicite.o main.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 multiplicite.o: multiplicite.c
 	$(CC) -o $@ -c $< $(CFLAGS)
 
-multiplicite.o: multiplicite.c multiplicite.h
+main.o: main.c multiplicite.h
 	$(CC) -o $@ -c $< $(CFLAGS)
 
 clean:
