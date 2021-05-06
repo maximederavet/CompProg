@@ -44,7 +44,7 @@ char get_name(Escale *e);
 /**
 obtient la distance entre 2 escales
 Precondition : *e ∧ *d initialisés
-postcondition : *distance = *√[(Xd−Xe)²+(Yd−Ye)²]
+postcondition : *distance = *√[(dX−eX)²+(dY−eY)²]
 */
 double distance(Escale *e, Escale *d);
 

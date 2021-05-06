@@ -54,3 +54,10 @@ double distance(Escale *e, Escale *d){
 
   return sqrt(( d->x - e->x )*( d->x - e->x ) + ( d->y - e->y )*( d->y - e->y ));
 }//end distance()
+
+
+bool set_time(Escale *e, double *nouveau_temps){
+  assert(e != NULL);
+  e->temps = *nouveau_temps;
+  return true;
+}//end set_time
