@@ -10,12 +10,15 @@ struct escale_t{
 
 
 Escale *create(double a, double b, char name){
-  Escale *temp = malloc(sizeof Escale);
-  if (temp == NULL);
+  Escale *temp = (Escale *)malloc(sizeof(Escale));
+  if (temp == NULL){
     return NULL;
+  }
 
   temp->x = a;
   temp->y = b;
   temp->nom = name;
   temp->temps = 0.0;
+
+  return temp;
 }// end create()
