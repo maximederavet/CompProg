@@ -63,10 +63,4 @@ postcondition : *get_time = *temps
 double *get_time(Escale *e);
 
 
-
-
-
-
-
-
 #endif
