@@ -11,7 +11,7 @@ Postcondition : retourne un pointeur vers l'escale créée(coord X, coord Y, nom
                 le temps pour cette escale est initialisé à 0.0 tant qu'iln'a pas été enregistré ),
                 retourne Null si erreur
 */
-Escale *escale(double x, double y, char nom);
+Escale *create(double a, double b, char nom);
 
 /**
 destructeur
