@@ -1,6 +1,6 @@
 #include "escale.h"
-#include "assert.h"
-#include "math.h"
+#include <math.h>
+#include <assert.h>
 #include <stdlib.h>
 
 struct escale_t{
@@ -57,7 +57,15 @@ double distance(Escale *e, Escale *d){
 
 
 bool set_time(Escale *e, double *nouveau_temps){
-  assert(e != NULL);
+  assert(e != NULL && *nouveau_temps > 0.0);
   e->temps = *nouveau_temps;
   return true;
 }//end set_time
+
+
+
+double get_time(Escale *e){
+  assert(e!= NULL);
+
+  return e->temps;
+}// end get_time()
