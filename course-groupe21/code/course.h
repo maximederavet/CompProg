@@ -2,7 +2,7 @@
 #define __COURSE__
 
 
-typedef struct course_t COURSE;
+typedef struct course_t Course;
 
 
 
