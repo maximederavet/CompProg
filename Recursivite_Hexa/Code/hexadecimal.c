@@ -1,3 +1,4 @@
+
 #include <assert.h>
 
 #include "hexadecimal.h"
@@ -33,7 +34,39 @@ static unsigned int convert(char hex){
 }//fin convert()
 
 unsigned int hexa_dec_rec(char *hexa, int n){
-  //VOTRE CODE ICI
+  assert(n>0);
 
-  return 0;
+
+  //déclaration des variables
+  int i = 0;
+  int j = 0;
+  int caract;
+  unsigned int nombre_total = 0;
+  int exposant =1;
+
+
+  //début de la boucle
+  while (i<n)
+  {
+    caract = convert(hexa[i]);
+    j = n-i-1;
+
+    //calcul de la puissance de 16 au rang correspondant
+    while (j>0)
+    {
+      exposant*=16;
+      j--;
+    }
+
+
+    //Calcul du nombre final
+    nombre_total += (caract * exposant);
+
+
+    //Remise à 0 et incrémentation des compteurs
+    exposant = 1;
+    i++;
+  }
+
+  return nombre_total;
 }//fin hexa_dec_rec()
