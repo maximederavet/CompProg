@@ -1,0 +1,9 @@
+CC=gcc
+LD=gcc
+CFLAGS=--std=c99 --pedantic -Wall -Wextra -Wmissing-prototypes
+LDFLAGS=
+LATEX=pdflatex
+BINARY=main-romain
+TAR=tar
+TARNAME=sxxxxxx.tar.gz
+RAPPORTSOURCE=rapport_XXXXXX
