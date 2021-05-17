@@ -39,23 +39,22 @@ static unsigned int convert(char hex){
 
 
 unsigned int hexa_dec_rec(char *hexa, int n){
+   assert(n>-1);
 
-  int caract =0;
+
   unsigned int nombre;
 
 
-
   if (n >0){
+    assert(convert(hexa[n-1]) != 4294967295);
     nombre = convert(hexa[n-1]);
-
     return nombre + 16 * hexa_dec_rec(hexa, n-1);
-
   }
 
-else {
+else
   return 0;
 
-}
+
 
 
 
