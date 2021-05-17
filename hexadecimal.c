@@ -32,40 +32,32 @@ static unsigned int convert(char hex){
   return -1;
 }//fin convert()
 
+
+
+
+
+
+
 unsigned int hexa_dec_rec(char *hexa, int n){
-  assert(n>0);
+   assert(n>-1);
 
 
-  //déclaration des variables
-  int i = 0;
-  int j = 0;
-  int caract;
-  unsigned int nombre_total = 0;
-  int exposant =1;
+  unsigned int nombre;
 
 
-  //début de la boucle
-  while (i<n)
-  {
-    caract = convert(hexa[i]);
-    j = n-i-1;
-
-    //calcul de la puissance de 16 au rang correspondant
-    while (j>0)
-    {
-      exposant*=16;
-      j--;
-    }
-
-
-    //Calcul du nombre final
-    nombre_total += (caract * exposant);
-
-
-    //Remise à 0 et incrémentation des compteurs
-    exposant = 1;
-    i++;
+  if (n >0){
+    assert(convert(hexa[n-1]) != 4294967295);
+    nombre = convert(hexa[n-1]);
+    return nombre + 16 * hexa_dec_rec(hexa, n-1);
   }
 
-  return nombre_total;
+else
+  return 0;
+
+
+
+
+
+
 }//fin hexa_dec_rec()
+
