@@ -34,10 +34,12 @@ static unsigned int convert(char hex){
 
 
 
-
-
-
-
+/**
+* Précondition : - Hexa doit être une chaine de caractères composée de chiffres compris entre 0 et 9 ou des lettres comprises entre A et F
+*                - n doit être égal à la taille de la chaine hexa
+* Postcondition : retourne le nombre hexadécimal entré en base 10
+*
+*/
 unsigned int hexa_dec_rec(char *hexa, int n){
    assert(n>-1);
 

@@ -72,12 +72,12 @@
 
 %%%%%%%%%%%%%%%%% TITRE %%%%%%%%%%%%%%%%
 % Complétez et décommentez les définitions de macros suivantes :
-\newcommand{\intitule}{Le titre du travail}
-\newcommand{\Prenom}{Galileo}
-\newcommand{\Nom}{Galilei}
-\newcommand{\matricule}{s201234}
+\newcommand{\intitule}{Récursivité et Élimination de la Récursivité}
+\newcommand{\Prenom}{Maxime}
+\newcommand{\Nom}{Deravet}
+\newcommand{\matricule}{s202214}
 % Décommentez ceci si vous voulez une table des matières :
-% \renewcommand{\tablemat}{\tableofcontents}
+\renewcommand{\tablemat}{\tableofcontents}
 
 %%%%%%%% ZONE PROTÉGÉE : MODIFIEZ UNE DES DIX PROCHAINES %%%%%%%%
 %%%%%%%%            LIGNES POUR PERDRE 2 PTS.            %%%%%%%%
@@ -101,12 +101,43 @@
 % Fournissez et discutez ici la formulation récursive du problème
 %
 
+$\sum\limits_{i=0}^{n-1}    a_{i} \times 16^{ n-1}$
+\\
+\\
+a étant le nombre retourné par convert(),\\ i le rang dans la chaine de caractères,\\ et n la taille de la chaine de caractères soustrait du rang
+
+
+
 \section{Spécification}\label{specification}
 %%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Fournissez et discutez ici la spécification formelle de la fonction
 % hexa_dec_rec()
 %
+
+
+\begin{flushleft}
+    \bf
+    Préconditions
+\end{flushleft}
+
+La chaîne de caractères hexa doit être composée de caractères repris dans l'hexadécimal, autrement dit des chiffres compris entre 0 et 9 ou des lettres de A à F.
+\\
+n doit être égal à la taille de hexa
+\\
+
+
+\begin{flushleft}
+    \bf
+Postconditions
+\end{flushleft}
+
+La fonction hexa\_dec\_rec() renvoie l'équivalent du nombre hexadécimal entré en base 10
+
+
+
+
+
 
 \section{Construction Récursive}\label{recur}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -115,6 +146,102 @@
 % intermédiaires) de la fonction hexa_dec_rec()
 %
 
+
+\begin{flushleft}
+    \bf
+    Programmation défensive :
+\end{flushleft}
+
+On vérifie que le tableau n'a pas de valeur négative, et que les caractères rentrés sont bien hexadécimaux.
+
+\begin{lstlisting}[caption={Programmation défensive}]
+/**
+* Précondition : - Hexa doit être une chaine de caractères composée de chiffres
+*compris entre 0 et 9 ou des lettres comprises entre A et F
+*                - n doit être égal à la taille de la chaine hexa
+* Postcondition : retourne le nombre hexadécimal entré en base 10
+*
+*/
+unsigned int hexa_dec_rec(char *hexa, int n)
+
+\end{lstlisting}
+
+
+%%%%%
+
+
+\begin{flushleft}
+    \bf
+    Cas récursif :
+\end{flushleft}
+
+Il n'y a qu'un cas récursif, si n >0\\
+(L'assertion vérifie la valeur maximale d'un int, car la fonction unsigned int convert renvoie -1)
+
+\begin{lstlisting}[caption={Cas récursif}]
+  if (n >0){
+    assert(convert(hexa[n-1]) != 4294967295);
+    nombre = convert(hexa[n-1]);
+    return nombre + 16 * hexa_dec_rec(hexa, n-1);
+  }
+
+\end{lstlisting}
+
+
+%%%%
+\begin{flushleft}
+    \bf
+    Cas de base :
+\end{flushleft}
+
+Simplement si n == 0, alors la fonction renvoie 0
+
+\begin{lstlisting}[caption={Cas de base}]
+else
+  return 0;
+
+\end{lstlisting}
+
+%%%
+
+
+\begin{flushleft}
+    \bf
+    Code complet :
+\end{flushleft}
+
+Le unsigned int nombre est juste là pour rendre le code plus lisible, mais n'a pas d'autres utilités.
+
+\begin{lstlisting}[caption={Cas de base}]
+/**
+* Précondition : - Hexa doit être une chaine de caractères composée de chiffres
+*compris entre 0 et 9 ou des lettres comprises entre A et F
+*                - n doit être égal à la taille de la chaine hexa
+* Postcondition : retourne le nombre hexadécimal entré en base 10
+*
+*/
+unsigned int hexa_dec_rec(char *hexa, int n){
+   assert(n>-1);
+
+
+  unsigned int nombre;
+
+
+  if (n >0){
+    assert(convert(hexa[n-1]) != 4294967295);
+    nombre = convert(hexa[n-1]);
+    return nombre + 16 * hexa_dec_rec(hexa, n-1);
+  }
+
+else
+  return 0;
+
+\end{lstlisting}
+
+
+
+
+
 \section{Traces d'Exécution}\label{traces}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -122,64 +249,69 @@
 % pour les exemples donnés dans l'énoncé
 %
 
-% L'exemple ci-dessous donne une trace d'exécution pour un exercice sur les
-% Piles (cfr. GameCodes associés).  Inspirez-vous du code LaTeX pour produire
-% vos traces d'exécution.
-% \begin{tabular}{|c|}
-% \\
-% \\
-% \textcolor{white}{--}\\
-% \hline
-% \end{tabular}~~
-% \begin{tabular}{|c|}
-% \\
-% \\
-% 20\\
-% \hline
-% \end{tabular}~~
-% \begin{tabular}{|c|}
-% \\
-% 4\\
-% 20\\
-% \hline
-% \end{tabular}~~
-% \begin{tabular}{|c|}
-% \\
-% \\
-% 80\\
-% \hline
-% \end{tabular}~~
-% \begin{tabular}{|c|}
-% \\
-% 9\\
-% 80\\
-% \hline
-% \end{tabular}~~
-% \begin{tabular}{|c|}
-% 7\\
-% 9\\
-% 80\\
-% \hline
-% \end{tabular}~~
-% \begin{tabular}{|c|}
-% \\
-% 16\\
-% 80\\
-% \hline
-% \end{tabular}~~
-% \begin{tabular}{|c|}
-% \\
-% \\
-% 5\\
-% \hline
-% \end{tabular}
-
+\newpage
 \section{Complexité}\label{complexite}
 %%%%%%%%%%%%%%%%%%%%%
 %
 % Fournissez et discutez ici la complexité théorique de la fonction
 %  hexa_dec_rec()
 %
+Le corps de la fonction, avec découpe en régions, est le suivant :
+
+\vfill
+\begin{center} \includegraphics[scale=0.25]{image.png} \end{center}
+\vfill
+
+On peut faire une telle découpe. En fait, on considère qu’ils vont impliquer autant d’opérations élémentaires :b. Par contre, le temps pris par l’appel récursif est bienT(n).On obtient alors le système suivant :
+
+
+\begin{equation*}
+T(n) =
+\begin{cases}
+a & \text{si } n = 0,\\
+b + T(n) & \text{sinon } \\
+
+\end{cases}
+\end{equation*}
+\\
+
+Il y a bien une addition entre b et T(n) parce qu’il faut d’abord faire b opérations,puis, il faut exécuter 1 appel récursif. Résolvons l’équation de récurrence par application de la méthode de proche en proche :
+
+
+\begin{align}
+T(n) & = b + T(n) \\
+& = 2 \times b + 2 \times T(n) \\
+& = 3 \times b + 3 \times T(n) \\
+& = ... \\
+& = k \times b + k \times T(n) \\
+\end{align}
+\\
+On sait que : \\
+ T(1) =b+T(0) =b+a \\
+
+ Essayons de faire apparaitre T(1) à la place de T(n) :\\
+ T(1) = b + T(0) = b + a \\
+ n = 1 \\
+ n = k \\
+ \newpage
+ Il vient alors:
+
+\begin{align}
+T(n) & = k \times b + k \times T(n)\\
+& = b \times n + b + a  \in O(n)\\
+\end{align}
+Nous avons donc une complexité linéaire
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Dérécursification}\label{derecur}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%

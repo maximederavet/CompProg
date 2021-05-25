@@ -3,6 +3,7 @@ include Makefile.compilation
 all:
 	cd Code; make all
 	cd Rapport; make all
+	@echo COMPLETE
 
 clean:
 	cd Code; make clean
