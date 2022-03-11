@@ -4,7 +4,7 @@
 
 int main(){
    int N = 7;
-   int T[7] ={-1 , 5 , -3 , 10 , 12 , -2 , -4};
+   int T[7] ={10,-5,0,-3,7,9,-10};
    int taille_utile;
 
    taille_utile = filtrer(T, N);
@@ -14,8 +14,7 @@ int main(){
       printf("%d ",T[i]);
    }
    printf("\n");
-   printf("la valeure est %d\n", taille_utile);
-
+   printf("la taille utile est %d\n", taille_utile);
 
 return 0;
 }
