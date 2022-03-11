@@ -11,8 +11,6 @@
 #ifndef __FILTRER__
 #define __FILTRER__
 
-
-
 /**
  *
  * @param T != NULL
