@@ -1,9 +1,0 @@
-CC=gcc
-LD=gcc
-CFLAGS=--std=c99 --pedantic -Wall -Wextra -Wmissing-prototypes
-LDFLAGS=
-LATEX=pdflatex
-BINARY=main-romain
-TAR=tar
-TARNAME=s202214.tar.gz
-RAPPORTSOURCE=rapport_s202214

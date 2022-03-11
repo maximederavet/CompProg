@@ -1,7 +1,0 @@
-\babel@toc {french}{}
-\contentsline {section}{\numberline {1}Formulation Récursive}{3}%
-\contentsline {section}{\numberline {2}Spécification}{3}%
-\contentsline {section}{\numberline {3}Construction Récursive}{3}%
-\contentsline {section}{\numberline {4}Traces d'Exécution}{4}%
-\contentsline {section}{\numberline {5}Complexité}{5}%
-\contentsline {section}{\numberline {6}Dérécursification}{6}%
