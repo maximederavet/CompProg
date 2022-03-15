@@ -10,7 +10,6 @@ int filtrer(int *T, int N){
 
    int i=0;
    int j=0;
-   int tmp;
    int taille_utile=N;
 
    while(i<taille_utile){
@@ -20,8 +19,7 @@ int filtrer(int *T, int N){
       else {
          j=i;
          while(j<taille_utile){
-            tmp = T[j+1];
-            T[j] = tmp;
+            T[j] = T[j+1];
             j++;
          }
          T[taille_utile-1] = 0;

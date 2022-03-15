@@ -4,7 +4,7 @@
 
 int main(){
    int N = 7;
-   int T[7] ={10,-5,0,-3,7,9,-10};
+   int T[7] ={2,2,2,2,2,2,2};
    int taille_utile;
 
    taille_utile = filtrer(T, N);

@@ -2,7 +2,7 @@
 
 
 int test(int x){
-   if(x > 0)
+   if(! (x%2))
       return 1;
    else
       return 0;
