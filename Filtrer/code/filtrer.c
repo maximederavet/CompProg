@@ -9,22 +9,14 @@ int filtrer(int *T, int N){
    assert(N >0);
 
    int i=0;
-   int j=0;
-   int taille_utile=N;
+   int taille_utile = 0;
 
-   while(i<taille_utile){
+   while(i<N){
       if(test(T[i])){
+         taille_utile++;
          i++;
       }
-      else {
-         j=i;
-         while(j<taille_utile){
-            T[j] = T[j+1];
-            j++;
-         }
-         T[taille_utile-1] = 0;
-         taille_utile--;
-      }
+
    }
    return taille_utile;
 }
