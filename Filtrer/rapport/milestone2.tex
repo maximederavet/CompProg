@@ -1,0 +1,165 @@
+f\documentclass[a4paper, 11pt, oneside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{array}
+\usepackage{shortvrb}
+\usepackage{listings}
+\usepackage[fleqn]{amsmath}
+\usepackage{amsfonts}
+\usepackage{fullpage}
+\usepackage{enumerate}
+\usepackage{graphicx}             % import, scale, and rotate graphics
+\usepackage{subfigure}            % group figures
+\usepackage{alltt}
+\usepackage{url}
+\usepackage{indentfirst}
+\usepackage{eurosym}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[table,xcdraw,dvipsnames]{xcolor}
+
+% Change le nom par défaut des listing
+\renewcommand{\lstlistingname}{Extrait de Code}
+
+% Change la police des titres pour convenir à votre seul lecteur
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape}
+% Idem pour la table des matière.
+\usepackage[nottoc,notlof,notlot]{tocbibind}
+\usepackage[titles,subfigure]{tocloft}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape}
+
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\newcommand{\coms}[1]{\textcolor{MidnightBlue}{#1}}
+
+\lstset{
+    language=C, % Utilisation du langage C
+    commentstyle={\color{MidnightBlue}}, % Couleur des commentaires
+    frame=single, % Entoure le code d'un joli cadre
+    rulecolor=\color{black}, % Couleur de la ligne qui forme le cadre
+    stringstyle=\color{RawSienna}, % Couleur des chaines de caractères
+    numbers=left, % Ajoute une numérotation des lignes à gauche
+    numbersep=5pt, % Distance entre les numérots de lignes et le code
+    numberstyle=\tiny\color{mygray}, % Couleur des numéros de lignes
+    basicstyle=\tt\footnotesize,
+    tabsize=3, % Largeur des tabulations par défaut
+    keywordstyle=\tt\bf\footnotesize\color{Sepia}, % Style des mots-clés
+    extendedchars=true,
+    captionpos=b, % sets the caption-position to bottom
+    texcl=true, % Commentaires sur une ligne interprétés en Latex
+    showstringspaces=false, % Ne montre pas les espace dans les chaines de caractères
+    escapeinside={(>}{<)}, % Permet de mettre du latex entre des <( et )>.
+    inputencoding=utf8,
+    literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\`E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+}
+\newcommand{\tablemat}{~}
+
+%%%%%%%%%%%%%%%%% TITRE %%%%%%%%%%%%%%%%
+% Complétez et décommentez les définitions de macros suivantes :
+% \newcommand{\intitule}{Le titre du travail}
+\newcommand{\GrNbr}{6}
+\newcommand{\PrenomUN}{Maxime}
+ \newcommand{\NomUN}{Deravet}
+ \newcommand{\PrenomDEUX}{Luca}
+ \newcommand{\NomDEUX}{Matagne}
+% Décommentez ceci si vous voulez une table des matières :
+% \renewcommand{\tablemat}{\tableofcontents}
+
+%%%%%%%% ZONE PROTÉGÉE : MODIFIEZ UNE DES DIX PROCHAINES %%%%%%%%
+%%%%%%%%            LIGNES POUR PERDE 2 PTS.            %%%%%%%%
+\title{INFO0947: Projet 1 Milestone 2}
+\author{Groupe \GrNbr : \PrenomUN~\textsc{\NomUN}, \PrenomDEUX~\textsc{\NomDEUX}}
+\date{}
+\begin{document}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%% FIN DE LA ZONE PROTÉGÉE %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%% RAPPORT %%%%%%%%%%%%%%%
+% Écrivez votre rapport ci-dessous.
+\section{Spécification du problème}
+
+
+p(x) est un prédicat déjà défini 
+\\
+T est un tableau d'entiers de taille non nulle
+\\
+N est la taille du tableau T,  (N \textgreater 0)
+
+taille\_utile est le nombre d'éléments du tableau qui satisfont $p(.) (0 \leq taille\_utile \leq N  )$
+\\
+\\
+$taille\_utile == \#i \cdot (0\leq i \leq N - 1|  p(T[i))  $
+\\
+\\
+$Filtrer(T, N)\equiv \forall i, 0 \leq i $\textless taille\_utile$, p(T[i])$\\
+\\
+$Filtrer(T, N)\equiv \forall i, taille\_utile \leq i \leq N-1, T[i] == 0$ \\
+\\
+$Filtrer(T, N)\equiv  \forall i, 0 \leq i $\textless taille\_utile$, T[i] = T_{0}[i]$ ???? Comment dire que les éléments sont dans l'ordre et appartiennent au tab initial ?
+\\
+///////voici un nouveau prédicat qui te permet de le dire///////////////
+\\
+$SousSuite(TabA, A, TabX, X)\equiv (\forall k, 1 \leq k < X, (\exists j, 0 \leq j<A, TabA[j]=TabX[k]))\land(\exists l, o \leq l < j, TabA[l]=TabX[k-1]) $
+
+
+
+
+\section{Invariants de boucle }
+\subsection{Invariant graphique}
+
+\begin{wrapfigure}{Invariant graphique de la fonction filtrer()}
+    \centering
+\includegraphics[scale = 0.5]{Capture d’écran 2022-03-17 174812.png}
+\end{wrapfigure}
+
+a) Les valeurs vérifient p(\cdot) $et sont dans le même ordre que $T$_{0}$\\
+b) Le tableau n'est pas encore filtré
+c) Contient N - taille\_utile 0 
+
+
+
+
+
+\subsection{Invariant formel}
+
+/////////////////// celui en fonction de ton graph ////////////////////////
+
+$N = N_{0} \land \forall i, 0 \leq i \leq N-1, Filtrer(T, i) = TRUE \land T tri = T_{0}$ \\
+\\
+//////////////////////// celui de la  photo ////////////////////////////////////
+
+$N = N_{0} \land \forall i, 0 \leq i<N, Filtrer(T,i) = TRUE \land
+\forall x, 0 \leq x<Taille utile, P(T[x]) = TRUE \rightarrow{} SousSuite(T_{0}, N, T, Taille utile),  \land
+\forall y, Taille utile \leq y<i, P(T[y]) = FALSE \rightarrow{}T[y]=0 $
+\\
+
+////////// en fait pour moi "taille utile" doit etre plus petit que "i" pour montrer que dans la parie du tableau déjà scannée il y a potentiellement déja des truc qui ne vérifient pas la propriété. Et surtout "taille utile" ne peut pas etre plus grand que "i" vu que cest le nombre d'éléments qui vérifient la propriété donc si tu as checké "i" éléments il ne peut pas y avoir lus de "i" éléments qui vérifient la propriété////////////////////////////
+
+
+
+
+
+
+
+
+
+
+\end{document}
