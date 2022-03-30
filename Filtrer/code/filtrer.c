@@ -1,21 +1,37 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
 #include "filtrer.h"
 #include "propriete.h"
 
 
-int main(){
-   int N = 7;
-   int T[7] ={2,2,2,2,2,2,2};
-   int taille_utile;
+int filtrer(int *T, int N){
+    assert(T != NULL && N >0);
 
-   taille_utile = filtrer(T, N);
+    int i= 0;
+    int taille_utile = 0;
+    //int first_zero= 0;
 
+    while(i<N){
+        if(!test(T[i])){
+            T[i]= 0;
+            i++;
+            //first_zero= 1;
 
-   for(int i=0 ; i<N; i++){
-      printf("%d ",T[i]);
-   }
-   printf("\n");
-   printf("la taille utile est %d\n", taille_utile);
+        }else{
+            if(taille_utile!= i){
+                T[taille_utile]= T[i];
+                T[i]= 0;
+                i++;
+                taille_utile++;
+            }else{
+                taille_utile++;
+                i++;
+            }
+        }
 
-return 0;
-}
+    }//fin while
+
+    return taille_utile;
+
+}//fin filtrer
