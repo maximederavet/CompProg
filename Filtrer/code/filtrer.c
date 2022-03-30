@@ -45,5 +45,10 @@ int filtrer(int *T, int N){
     }
 
     return taille_utile;
-
+    /*N = N_initial
+      ∧
+      filtrer(T, N)= taille_utile  
+      ∧
+      T=[ (  Sous_Suite(T_initial, taille_utile, T, N) ∧ Filtrage(T_initial, N, taille_utile)  ) || Zone_Morte(T, N, taille_utile)  ]
+    */
 }
