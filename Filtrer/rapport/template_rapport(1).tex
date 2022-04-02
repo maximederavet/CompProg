@@ -1,4 +1,4 @@
-documentclass[a4paper, 11pt, oneside]{article}
+\documentclass[a4paper, 11pt, oneside]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -72,14 +72,14 @@ documentclass[a4paper, 11pt, oneside]{article}
 
 %%%%%%%%%%%%%%%%% TITRE %%%%%%%%%%%%%%%%
 % Complétez et décommentez les définitions de macros suivantes :
-% \newcommand{\intitule}{Le titre du travail}
-% \newcommand{\GrNbr}{1742}
-% \newcommand{\PrenomUN}{Galileo}
-% \newcommand{\NomUN}{Galilei}
-% \newcommand{\PrenomDEUX}{Octave}
-% \newcommand{\NomDEUX}{Urbain}
+\newcommand{\intitule}{Projet1}
+\newcommand{\GrNbr}{06}
+\newcommand{\PrenomUN}{Maxime}
+\newcommand{\NomUN}{Deravet}
+\newcommand{\PrenomDEUX}{Luca}
+\newcommand{\NomDEUX}{Matagne}
 % Décommentez ceci si vous voulez une table des matières :
-% \renewcommand{\tablemat}{\tableofcontents}
+\renewcommand{\tablemat}{\tableofcontents}
 
 %%%%%%%% ZONE PROTÉGÉE : MODIFIEZ UNE DES DIX PROCHAINES %%%%%%%%
 %%%%%%%%            LIGNES POUR PERDRE 2 PTS.            %%%%%%%%
@@ -97,66 +97,255 @@ documentclass[a4paper, 11pt, oneside]{article}
 %%%%%%%%%%%%%%%% RAPPORT %%%%%%%%%%%%%%%
 % Écrivez votre rapport ci-dessous.
 
-\section{Insérer du code Latex}
+\section{Formalisation du problème}
+\subsection{Objets utilisés}
 
-\begin{lstlisting}[caption={Un programme tout simple}]
-int main(void)
-{
-	// Les commandes Latex sont permises dans les commentaires sur une ligne. Exemple : $x_i \leq a ^b$
-	printf("Bonjour tout le monde !");
-	/*
-	Dans les commentaires sur plusieurs lignes, elles doivent être entourées
-	de symboles définis par l'option « escapeinside » de \lstset
-	(>\coms{$\sum_{i = 1}^N 1 = N$}<)
-	La commande « \coms » permet de colorer correctement le code latex ajouté.
-	Les accents et tous les autres diacritiques sont permis : àÀçÇéÉèÈêÊœŒ...
-	*/
-	return 1; (>\label{code:ret}<)
-}
+T est un tableau d'entiers de taille non nulle
+\\
+N est la taille du tableau T,  (N \textgreater 0)
+\\
+taille\_utile est le nombre d'éléments du tableau qui satisfont $p(.) (0 \leq taille\_utile \leq N  )$
+
+\subsection{Prédicats}
+p(x) est un prédicat déjà défini 
+\\
+\\
+$Zone\_utile(T_{0},  N)  \equiv \#j \cdot (0\leq j < N|  p(T_{0}[j]))  $
+\\
+\\
+$Filtrage(T_{0}, N,taille\_utile)\equiv \forall j, 0 \leq j < taille\_utile, p(T_{0}[j])$\\
+\\
+$Zone\_morte(T, N,taille\_utile)\equiv \forall j, taille\_utile \leq j < N, T[j] = 0$ 
+\\
+\\
+$Sous\_suite(T_0, taille\_utile, T, N)\equiv (\forall k, 1 \leq k < taille\_utile, (\exists j, 0 \leq j<N, T_0[j]=T[k]))\land(\exists l, o \leq l < j, T_0[l]=T[k-1]) $
+
+
+\section{Spécifications du module}
+
+
+\begin{lstlisting}
+/**
+ *
+ * @préconditions : (>\coms{ $ \forall T[i], 0 \leq i < N, T[i] \in \mathbb{Z} $  }<)
+ *                  N > 0
+ * @postconditions : (>\coms{ $ N=N_0
+\\*                   \land filtrer(T, N) = taille\_utile
+\\*                   \land T = [Sous\_suite(T_0, taille\_utile, T, N) \land Filtrage(T_0, N, taille\_utile) || Zone\_morte(T,N,taille\_utile)] $  }<)
+ */
+int filtrer(int *T, int N);
+
 \end{lstlisting}
 
-Il est possible de faire référence à la ligne \ref{code:ret} de l'extrait de code.
 
-\section{Dessiner un tableau}
 
-Comme mentionné sur le forum «~\emph{eCampus > Forum : Projets -- Informations générales > Thème : Dessine-moi un Invariant Graphique !}~», il est possible de dessiner facilement des tableaux. Le résultat de l'exemple donné sur le forum eCampus est visible dans la Fig.~\ref{fig:exemple}.
+\section{Découpe en sous-problèmes}
+SP0 : Parcours du tableau et vérification de  $p(\cdot)$ pour chaque valeur
+\\SP1 : Si p n'est pas vérifié, on place un 0 dans la case actuelle, et on continue le parcours du tableau
+\\SP2 : Si p est vérifié, on vérifie si on a déjà rencontré des valeurs qui ne vérifient pas p
+\\SP2.1 : si c'est le cas, alors on met la valeur actuelle dans la case à l'index taille\_utile, puis 0 dans la case actuelle. On incrément taille\_utile. On poursuis la boucle ensuite
+\\SP2.2. Si on n'a pas encore rencontré de valeur ne vérifiant pas p, alors on incrémente taille\_utile, et on poursuis la boucle. 
 
-\begin{figure}[!h]
-\centering
-\begin{tabular}{l|llr|ll|l}
- & 0 &  & \multicolumn{1}{r|}{i-1} & i &  & N \\ \cline{2-6}
-t: & \cellcolor[HTML]{FFCC67} & \cellcolor[HTML]{FFCC67}. > 0 & \cellcolor[HTML]{FFCC67} &  &  &  \\ \cline{2-6}
-\end{tabular}
-\caption{Voici le tableau de l'exemple}
-\label{fig:exemple}
-\end{figure}
+$SP0 \supset (SP1, SP2 \supset (SP2.1, SP2.2))$
 
-N'oubliez pas non plus que l'outil GLIDE permet d'exporter un Invariant Graphique au format PDF.
 
-\section{Autres conseils}
 
-\subsection{Utilisez les bons opérateurs}
+\section{Invariants de boucle}
+Le SP0 fait apparaître la nécessité d'une boucle pour résoudre le problème. 
+Voici les invariants de cette boucle:
 
-Voir la table \ref{table:op}.
+\subsection{Invariant graphique}
+\begin{wrapfigure}{Invariant graphique de la fonction filtrer()}
 
-\begin{table}[!h]
-\centering
-\begin{tabular}{l c}
-Nom & Op \\
-\hline
-ET & $\land$ \\
-OU & $\lor$ \\
-Quantification universelle & $\forall$ \\
-Quantification existentielle & $\exists$ \\
-\end{tabular}
-\caption{Opérateurs les plus usuels en logique}
-\label{table:op}
-\end{table}
+\includegraphics[scale = 0.5]{Capture d’écran 2022-03-23 165331.png}
+\end{wrapfigure}
 
-\subsection{Trouver un symbole précis}
+a) Les valeurs vérifient $p(\cdot)$ et sont dans le même ordre que $T_{0}$\\
+b) Contient des 0 (il y en a i - taille\_utile)\\
+c) Le tableau n'est pas encore filtré\\
 
-Voir ce site : \url{http://detexify.kirelabs.org/classify.html}. Il suffit de dessiner le symbole dont vous avez besoin et le site trouvera (normalement) la bonne commande à taper (ainsi que le package à éventuellement inclure si besoin est).
 
-\subsection{N'oubliez pas de relire le résultat produit par la compilation}
 
+\subsection{Invariant formel}
+$N = N_{0} 
+\\ \land 0 \leq taille\_utile \leq i < N
+\\ \land \forall x, 0 \leq x<taille\_utile, Filtrage(T_{0}, i, taille\_utile), Sous\_suite(T_0, taille\_utile, T, i) 
+\\ \land \forall y, taille\_utile \leq y<i, Zone\_morte(T, i, taille\_utile) $
+\\
+\\
+fonction de terminaison : N-i
+\section{Implémentations des Sous-Problèmes}
+\subsection{SP0}
+\begin{lstlisting}
+while(i<N){ //SP0
+        if(!test(T[i])){ //SP0
+        //SP1
+        }else{
+        //SP2
+        }
+    }
+\end{lstlisting}
+\subsection{SP1}
+\begin{lstlisting}
+if(!test(T[i])){//SP0
+   T[i]= 0;//SP1
+   i++;//SP1
+   }
+\end{lstlisting}
+
+\subsection{SP2}
+\begin{lstlisting}
+else{//SP0
+    if(taille_utile!= i){//SP2
+        T[taille_utile]= T[i];//SP2.1
+        T[i]= 0;//SP2.1
+        i++;//SP2.1
+        taille_utile++;//SP2.1
+    }else{//SP2
+        taille_utile++;//SP2.2
+        i++;//SP2.2
+    }
+\end{lstlisting}
+
+
+\section{Construction du code}
+
+\subsection{Code complet}
+\begin{lstlisting}
+int filtrer(int *T, int N){
+    assert(T != NULL && N >0);
+    // $\forall T[i], 0 \leq i < N, T[i] \in \mathbb{Z} \land N < 0 $
+    int i= 0;
+    int taille_utile = 0;
+    // $\forall T[i], 0 \leq i < N, T[i] \in \mathbb{Z} \land N < 0 \land i = 0 \land taille\_utile = 0 $ 
+
+    // $ N = N_{0} $
+    // $ \land $
+    // $0 \leq taille\_utile \leq i < N $
+    // $ \land $
+    // $ \forall x, 0 \leq x < taille\_utile, Filtrage(T_{0}, N, taille\_utile),  Sous\_Suite(T_{0}, taille\_utile, T, N) $
+    // $ \land $
+    // $ \forall y, taille\_utile \leq y<i, Zone\_morte(T, i, taille\_utile) $
+    while(i<N){
+    // $ N = N_{0} $
+    // $ \land $
+    // $ 0 \leq taille\_utile \leq i < N $
+    // $ \land $
+    // $ \forall x, 0 \leq x < taille\_utile, Filtrage(T_{0}, i, taille\_utile),  Sous\_Suite(T_{0}, taille\_utile, T, i) $
+    // $ \land $
+    // $ \forall y, taille\_utile \leq y<i, Zone\_morte(T, i, taille\_utile) $
+    // $ \land $
+    // $ i < N $
+        if(!test(T[i])){
+        // $ Filtrage(T_{0}, i-1, taille\_utile) \land  Zone\_Morte(T, i-1, taille\_utile) \land \neg p(T[i]) $
+            T[i]= 0;
+            // $ Filtrage(T_{0}, i, taille\_utile) \land  Zone\_Morte(T, i, taille\_utile) $
+            i++;
+            // $ Filtrage(T_{0}, i-1, taille\_utile) \land  Zone\_Morte(T, i-1, taille\_utile) $
+        }else{
+        // $ Filtrage(T_{0}, i-1, taille\_utile) \land  Zone\_Morte(T, i-1, taille\_utile) \land p(T[i]) $
+            if(taille_utile!= i){
+            // $ Filtrage(T_{0}, i-1, taille\_utile) \land  Zone\_Morte(T, i-1, taille\_utile) \land p(T[i]) \land taille\_utile \neq i $
+                T[taille_utile]= T[i];
+                
+                T[i]= 0;
+                i++;
+                taille_utile++;
+            }else{
+                taille_utile++;
+                i++;
+            }
+        }
+    }//fin while
+    // $ N = N_{0} $
+    // $ \land $
+    // $ filtrer(T, N) = taille\_utile $
+    // $ \land $
+    // $ T = [(Sous\_suite(T_0, taille\_utile, T, N) \land Filtrage(T_0, N, taille\_utile))|| Zone\_morte(T,N,taille\_utile)] $
+    return taille_utile;
+}//fin filtrer
+\end{lstlisting}
+
+\section{Démonstration de la complexité de $filtrer()$}
+Construisons la fonction T($\cdot$), qui est la somme des complexités de chaque partie de $filtrer()$:
+
+
+La première partie du code regroupe les initialisations de variables et est appelée T(A). La boucle $while$ et son contenu seront regroupés dans la fonction T(B). Et pour terminer, l'instruction $return$ sera reprise dans la fonction T(C).
+
+\subsection{T(A)}
+
+\begin{lstlisting}
+    assert(T != NULL && N >0);
+    int i= 0;
+    int taille_utile = 0;
+\end{lstlisting}
+
+T(A) regroupe uniquement des déclarations et vérifications de variables. Selon la règle 1 (cfr. INFO0946, chapitre 4),nous pouvons dire que T(A) = 1.
+
+
+\subsection{T(B)}
+
+\begin{lstlisting}
+while(i<N){
+          
+        if(!test(T[i])){
+            T[i]= 0;
+            i++;
+            
+        }else{
+            if(taille_utile!= i){
+                T[taille_utile]= T[i];
+                T[i]= 0;
+                i++;
+                taille_utile++;
+            }else{
+                taille_utile++;
+                i++;
+            }
+        }
+    }//fin while
+\end{lstlisting}
+Selon la règle 5, la complexité d'une boucle $while$, est la complexité du contenu multipliée par le nombre de tours.
+
+Intéressons-nous donc au contenu: 
+Pour commencer, nous avons une première structure $if$ $else$. Sous le premier $if$ se trouvent uniquement des affectations et incrémentations de variables. Selon la règle 2, la complexité théorique est donc $T_1(n)$. 
+
+
+Ensuite, sous le premier $else$, se trouve une deuxième structure $if$ $else$. Regardons ce qu'il s'y trouve:
+
+Encore une fois, sous le second $if$, se trouvent uniquement des opérations d'incrémentations et d'affectations de variables. La complexité théorique est $T\_3(n)$(selon la règle 2). 
+
+Sous le second $else$, de nouveau, seulement des incrémentations de variables, et donc une complexité théorique $T_4(n)$ (selon la règle 2). 
+
+
+En additionnant le tout, cela nous donne : 
+$T_2(n) =  max(T_3(n), T_4(n))$
+\\i est le nombre de tours de boucle
+\begin{align}
+  T(B) &= max(T_1(n), T_2(n)) * i\nonumber \\
+       &= T(n) * i  \nonumber \\
+       &=T(n) \nonumber
+\end{align}
+
+Voici un schéma reprenant les explications ci-dessus:
+\\
+\begin{wrapfigure}
+\centering \includegraphics[scale = 0.8]{Complexité.png}
+\end{wrapfigure}
+
+\subsection{T(C)}
+
+Étant donné que la fonction T(C) ne reprend qu'une seule instruction, qui est le $return$, sa complexité est égale à 1 (règle 1).
+
+\subsection{Complexité du module complet}
+
+Au final, nous obtenons :
+
+\begin{align}
+  T(N) &= T(A) + T(B) + T(C) \nonumber \\
+       &= 1 + n + 1 \nonumber \\
+       &= n + 2 \nonumber \\
+       &= n
+\end{align}
+La complexité du module $filtrer$ est donc \bf linéaire.
 \end{document}
