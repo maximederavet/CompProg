@@ -127,11 +127,14 @@ $Sous\_suite(T_0, taille\_utile, T, N)\equiv (\forall k, 1 \leq k < taille\_util
 \begin{lstlisting}
 /**
  *
- * @préconditions : (>\coms{ $ \forall T[i], 0 \leq i < N, T[i] \in \mathbb{Z} $  }<)
- *                  N > 0
+ * @préconditions : (>\coms{ $ \forall T[i], 0 \leq i < N, T[i] \in \mathbb{Z}
+                    \land
+                    N > 0$  }<)
  * @postconditions : (>\coms{ $ N=N_0
-\\*                   \land filtrer(T, N) = taille\_utile
-\\*                   \land T = [Sous\_suite(T_0, taille\_utile, T, N) \land Filtrage(T_0, N, taille\_utile) || Zone\_morte(T,N,taille\_utile)] $  }<)
+                     \land 
+                     filtrer(T, N) = taille\_utile
+                     \land 
+                     T = [(Sous\_suite(T_0, taille\_utile, T, N) \land Filtrage(T_0, N, taille\_utile) || Zone\_morte(T,N,taille\_utile))] $  }<)
  */
 int filtrer(int *T, int N);
 
@@ -237,32 +240,52 @@ int filtrer(int *T, int N){
     // $ \land $
     // $ i < N $
         if(!test(T[i])){
-        // $ Filtrage(T_{0}, i-1, taille\_utile) \land  Zone\_Morte(T, i-1, taille\_utile) \land \neg p(T[i]) $
+        // $ Filtrage(T_{0}, i-1, taille\_utile-1) \land  Zone\_Morte(T, i-1, taille\_utile-1) \land \neg p(T[i]) $
             T[i]= 0;
-            // $ Filtrage(T_{0}, i, taille\_utile) \land  Zone\_Morte(T, i, taille\_utile) $
+            // $ Filtrage(T_{0}, i, taille\_utile-1) \land  Zone\_Morte(T, i, taille\_utile-1) $
             i++;
-            // $ Filtrage(T_{0}, i-1, taille\_utile) \land  Zone\_Morte(T, i-1, taille\_utile) $
+            // $ Filtrage(T_{0}, i-1, taille\_utile-1) \land  Zone\_Morte(T, i-1, taille\_utile-1) $
         }else{
-        // $ Filtrage(T_{0}, i-1, taille\_utile) \land  Zone\_Morte(T, i-1, taille\_utile) \land p(T[i]) $
+        // $ Filtrage(T_{0}, i-1, taille\_utile-1) \land  Zone\_Morte(T, i-1, taille\_utile-1) \land p(T[i]) $
             if(taille_utile!= i){
-            // $ Filtrage(T_{0}, i-1, taille\_utile) \land  Zone\_Morte(T, i-1, taille\_utile) \land p(T[i]) \land taille\_utile \neq i $
+            // $ Filtrage(T_{0}, i-1, taille\_utile-1) \land  Zone\_Morte(T, i-1, taille\_utile-1)$
+            // $ \land $
+            // $ p(T[i]) \land taille\_utile \neq i $
                 T[taille_utile]= T[i];
-                
                 T[i]= 0;
+                // $ Filtrage(T_{0}, i, taille\_utile) \land  Zone\_Morte(T, i, taille\_utile) $
+                // $ \land $
+                // $ taille\_utile \neq i $
                 i++;
                 taille_utile++;
+                // $ Filtrage(T_{0}, i-1, taille\_utile-1) \land  Zone\_Morte(T, i-1, taille\_utile-1) $
+                // $ \land $
+                // $ taille\_utile \neq i $
             }else{
+            // $ Filtrage(T_{0}, i-1, taille\_utile-1) \land  Zone\_Morte(T, i-1, taille\_utile-1)$
+            // $ \land $
+            // $ p(T[i]) \land taille\_utile = i $
                 taille_utile++;
                 i++;
+                //HHHHHHHHHHHEEEEEEEEEEEERRRRRRRRRREEEEEEEEEE
             }
         }
     }//fin while
     // $ N = N_{0} $
     // $ \land $
+    // $ 0 \leq taille\_utile \leq i < N $
+    // $ \land $
+    // $ \forall x, 0 \leq x < taille\_utile, Filtrage(T_{0}, i, taille\_utile),  Sous\_Suite(T_{0}, taille\_utile, T, i) $
+    // $ \land $
+    // $ \forall y, taille\_utile \leq y<i, Zone\_morte(T, i, taille\_utile) $
+    // $ \land $
+    // $ i \geq N $
+    return taille_utile;
+    // $ N = N_{0} $
+    // $ \land $
     // $ filtrer(T, N) = taille\_utile $
     // $ \land $
     // $ T = [(Sous\_suite(T_0, taille\_utile, T, N) \land Filtrage(T_0, N, taille\_utile))|| Zone\_morte(T,N,taille\_utile)] $
-    return taille_utile;
 }//fin filtrer
 \end{lstlisting}
 
