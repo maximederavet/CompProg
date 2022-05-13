@@ -63,7 +63,7 @@ float get_y(Point2D* A);
  * @param B, Point d'arrivée du calcul de la distance
  * 
  * @pre: A != NULL & B != NULL
- * @post A = A_0 & B = B_0 & EuclDist = sqrt((A_x, B_x), (A_y, B_y))
+ * @post A = A_0 & B = B_0 & EuclDist = sqrt((A_x, B_x)², (A_y, B_y)²)
  * 
  */
 float EuclDist(Point2D* A, Point2D* B);
@@ -86,17 +86,18 @@ void TranslatePoint2D(Point2D* A, Point2D* B);
 
 /**
  * 
- * @fn void RotatePoint2D(Point2D* A, Point2D* B);
+ * @fn void RotatePoint2D(Point2D* A, Point2D* B, float x);
  * @brief Fonction qui fait subir une rotation du point A par rapport au point B
  * 
  * @param A, Point qui va subir la rotation
  * @param B, Point de repère immobile pour effectuer le rotation
+ * @param x, amplitude de l'angle de la rotation (sens trigonométrique = anti horloger)
  * 
  * @pre: A != NULL & B != NULL
  * @post A = RotatePoint2D(A, B) & B = B_0
  * 
  */
-void RotatePoint2D(Point2D* A, Point2D* B);
+void RotatePoint2D(Point2D* A, Point2D* B, float x);
 
 
 #endif
