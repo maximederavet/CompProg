@@ -37,7 +37,7 @@ Point2D* Create(float x, float y);
  * @post A=A_0 & get_x = Point2D->x
  * 
  */
-Point2D* Create(float x, float y);
+float get_x(Point2D* A);
 
 
 /**
@@ -87,7 +87,7 @@ void TranslatePoint2D(Point2D* A, Point2D* B);
 /**
  * 
  * @fn void RotatePoint2D(Point2D* A, Point2D* B, float x);
- * @brief Fonction qui fait subir une rotation du point A par rapport au point B
+ * @brief Fonction qui fait subir une rotation du point A par rapport au point B d'un angle de x degrés
  * 
  * @param A, Point qui va subir la rotation
  * @param B, Point de repère immobile pour effectuer le rotation

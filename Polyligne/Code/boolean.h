@@ -16,7 +16,7 @@
  * \struct Boolean
  * \brief Data structure representing a boolean.
  */
-typedef enum{
+typedef enum Boolean_t{
     False, 
     True
 }Boolean;

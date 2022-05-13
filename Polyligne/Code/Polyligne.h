@@ -1,7 +1,7 @@
 #ifndef __POLYLIGNE__
 #define __POLYLIGNE__
 
-#include "boolean.h"
+
 #include "Point2D.h"
 
 
@@ -26,7 +26,7 @@ typedef struct Polyligne_t Polyligne;
  * 
  * @return Une Polyligne ouverte composée du segment AB
  */
-Polyligne *CreatePolyligne(Point2D *A, Point2D *B, Boolean open);
+Polyligne *CreatePolyligne(Point2D *A, Point2D *B);
 
 
 /**
@@ -65,7 +65,7 @@ void Close(Polyligne* P);
  * @post P = P_0
  *
  */
-void IsOpen(Polyligne* P);
+Boolean IsOpen(Polyligne* P);
 
 
 /**
@@ -94,11 +94,11 @@ unsigned int NbrPoint(Polyligne* P);
  * 
  * @return Le nombre de points de la polyligne 
  */
-Point2D GetPoint(Polyligne* P, unsigned int numero);
+Point2D* GetPoint(Polyligne* P, unsigned int numero);
 
 
 /**
- * @fn void AddPoint(Polyligne* P, Point2D* A);
+ * @fn Polyligne AddPoint(Polyligne* P, Point2D* A);
  * @brief Ajoute le point "A" à la fin de la polyligne "P"
  * 
  * @param P, La Polyligne contenant dans laquelle on veut ajouter le point A
@@ -109,11 +109,11 @@ Point2D GetPoint(Polyligne* P, unsigned int numero);
  * 
  * @return Le nombre de points de la polyligne 
  */
-void AddPoint(Polyligne* P, Point2D* A);
+Polyligne* AddPoint(Polyligne* P, Point2D* A);
 
 
 /**
- * @fn void SuppPoint(Polyligne* P);
+ * @fn Polyligne SuppPoint(Polyligne* P);
  * @brief Supprime le dernier point de la polyligne
  * 
  * @param P, La Polyligne à laquelle on veut supprimer un point
@@ -123,9 +123,52 @@ void AddPoint(Polyligne* P, Point2D* A);
  * 
  * @return Le nombre de points de la polyligne 
  */
-void SuppPoint(Polyligne* P);
+Polyligne* SuppPoint(Polyligne* P);
 
 
+/**
+ * @fn float Length(Polyligne* P);
+ * @brief Calcule la longueur de la polyligne
+ * 
+ * @param P, La Polyligne dont on cherche la longueur
+ * 
+ * @pre P != NULL 
+ * @post P = P_0 & Length(P)=  MAX COMMENT JE METS MA SOMME ICI
+ * 
+ * @return La longueur de la polyligne
+ */
+float Length(Polyligne* P);
+
+
+/**
+ * @fn Polyligne PolyTranslate(Polyligne* P, Point2D* A);
+ * @brief Fait subir la translation de point A à le polyligne P
+ * 
+ * @param P, La Polyligne qui va subir la translation
+ * @param A, Le poit de référence de la translation
+ * 
+ * @pre P != NULL 
+ * @post ////////////////////////////////////////////////////////////
+ * 
+ * @return La longueur de la polyligne
+ */
+Polyligne* PolyTranslate(Polyligne* P, Point2D* A);
+
+
+/**
+ * @fn Polyligne PolyRotate(Polyligne* P, Point2D* A, float, x);
+ * @brief Fait subir la rotation de point A et d'angle x à la polyligne P
+ * 
+ * @param P, La Polyligne qui va subir la rotation
+ * @param A, Le poit de référence de la rotation
+ * @param x, angle de rotation (en degrés) de P par rapport à A (sens trigonométrique)
+ * 
+ * @pre P != NULL 
+ * @post ////////////////////////////////////////////////////////////
+ * 
+ * @return La longueur de la polyligne
+ */
+Polyligne* PolyRotate(Polyligne* P, Point2D* A, float x);
 
 
 #endif
