@@ -21,8 +21,6 @@ typedef struct Polyligne_t Polyligne;
  * @param B, Le point d'arrivée du premier segment de la polyligne
  * @param open, Un booléen qui donne l'état d'ouverture de la polyligne. On l'initialise à True par défaut.
  * 
- * @pre A != NULL & B != NULL
- * @post A = A_0 & B = B_0 & CreatePolyligne(A,B,open) = P & nbpoint(P) = nbpoint(P) & length(P) = Length(P)
  * 
  * @return Une Polyligne ouverte composée du segment AB
  */
@@ -35,8 +33,6 @@ Polyligne *CreatePolyligne(Point2D *A, Point2D *B);
  * 
  * @param P, La Polyligne à ouvrir (si elle est fermée)
  * 
- * @pre P != NULL
- * @post open = True & nbpoint(p) = nbpoint(P_0) - 1 & length = Length(P) - EuclDIst(P->pointarray[nbpoint_0], P->pointarray[0])
  * 
  */
 void Open(Polyligne* P);
@@ -48,8 +44,6 @@ void Open(Polyligne* P);
  * 
  * @param P, La Polyligne à fermer (si elle est ouverte)
  * 
- * @pre P != NULL
- * @post open = False & nbpoint(p) = nbpoint(P_0) + 1 & length = Length(P) + EuclDIst(P->pointarray[nbpoint_0], P->pointarray[0])
  * 
  */
 void Close(Polyligne* P);
@@ -61,8 +55,6 @@ void Close(Polyligne* P);
  * 
  * @param P, La Polyligne à checker 
  * 
- * @pre P != NULL
- * @post P = P_0
  *
  */
 Boolean IsOpen(Polyligne* P);
@@ -74,8 +66,6 @@ Boolean IsOpen(Polyligne* P);
  * 
  * @param P, La Polyligne dont on cherche le nombre de points
  * 
- * @pre P != NULL
- * @post P = P_0 & nbpoint = NBRPoint(P)
  * 
  * @return Le nombre de points de la polyligne 
  */
@@ -89,8 +79,6 @@ unsigned int NbrPoint(Polyligne* P);
  * @param P, La Polyligne contenant le point que l'on cherche
  * @param numero, L'indice auquel se trouve le point que l'on cherche
  * 
- * @pre P != NULL
- * @post P = P_0 & GetPoint(P, numero) = P->pointarray[numero]
  * 
  * @return Le nombre de points de la polyligne 
  */
@@ -104,8 +92,6 @@ Point2D* GetPoint(Polyligne* P, unsigned int numero);
  * @param P, La Polyligne contenant dans laquelle on veut ajouter le point A
  * @param A, Le oint que l'on veut ajouter à la polyligne P
  * 
- * @pre P != NULL & A != NULL
- * @post nbpoint(p) = nbpoint(P_0) + 1 & length = Length(P) + EuclDIst(A, P->pointarray[nbpoint_0])
  * 
  * @return Le nombre de points de la polyligne 
  */
@@ -118,8 +104,6 @@ Polyligne* AddPoint(Polyligne* P, Point2D* A);
  * 
  * @param P, La Polyligne à laquelle on veut supprimer un point
  * 
- * @pre P != NULL 
- * @post nbpoint(p) = nbpoint(P_0) - 1 & length = Length(P) - EuclDIst(P->pointarray[nbpoint_0], P->pointarray[0])
  * 
  * @return Le nombre de points de la polyligne 
  */
@@ -132,8 +116,6 @@ Polyligne* SuppPoint(Polyligne* P);
  * 
  * @param P, La Polyligne dont on cherche la longueur
  * 
- * @pre P != NULL 
- * @post P = P_0 & Length(P)=  MAX COMMENT JE METS MA SOMME ICI
  * 
  * @return La longueur de la polyligne
  */
@@ -147,8 +129,6 @@ float Length(Polyligne* P);
  * @param P, La Polyligne qui va subir la translation
  * @param A, Le poit de référence de la translation
  * 
- * @pre P != NULL 
- * @post ////////////////////////////////////////////////////////////
  * 
  * @return La longueur de la polyligne
  */
@@ -163,8 +143,6 @@ Polyligne* PolyTranslate(Polyligne* P, Point2D* A);
  * @param A, Le poit de référence de la rotation
  * @param x, angle de rotation (en degrés) de P par rapport à A (sens trigonométrique)
  * 
- * @pre P != NULL 
- * @post ////////////////////////////////////////////////////////////
  * 
  * @return La longueur de la polyligne
  */
