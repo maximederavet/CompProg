@@ -62,7 +62,7 @@ float EuclDist(Point2D* A, Point2D* B);
 
 /**
  * 
- * @fn void TranslatePoint2D(Point2D* A, Point2D* B);
+ * @fn Point2D* TranslatePoint2D(Point2D* A, Point2D* B);
  * @brief Fonction qui fait subir une traslation du point A par rapport au point B
  * 
  * @param A, Point qui va subir la translation
@@ -70,12 +70,12 @@ float EuclDist(Point2D* A, Point2D* B);
  * 
  * 
  */
-void TranslatePoint2D(Point2D* A, Point2D* B);
+Point2D* TranslatePoint2D(Point2D* A, Point2D* B);
 
 
 /**
  * 
- * @fn void RotatePoint2D(Point2D* A, Point2D* B, float x);
+ * @fn Point2D* RotatePoint2D(Point2D* A, Point2D* B, float x);
  * @brief Fonction qui fait subir une rotation du point A par rapport au point B d'un angle de x degrés
  * 
  * @param A, Point qui va subir la rotation
@@ -84,7 +84,7 @@ void TranslatePoint2D(Point2D* A, Point2D* B);
  * 
  * 
  */
-void RotatePoint2D(Point2D* A, Point2D* B, float x);
+Point2D* RotatePoint2D(Point2D* A, Point2D* B, float x);
 
 
 #endif

@@ -50,10 +50,14 @@ float EuclDist(Point2D* A, Point2D* B){
 }//end EuclDIst()
 
 
-void TranslatePoint2D(Point2D* A, Point2D* B){
+Point2D* TranslatePoint2D(Point2D* A, Point2D* B){
     assert(A!=NULL && B!=NULL);
     
-    Point2D* Anew = A;
+    Point2D *Anew = malloc(sizeof(Point2D));
+    if(Anew==NULL)
+        return NULL;
+    
+    Anew = A;
 
     Anew->x = A->x + B->x;
     Anew->y = A->y + B->y;
@@ -62,14 +66,19 @@ void TranslatePoint2D(Point2D* A, Point2D* B){
 
     free(Anew);
 
-
+    return A;
 }//end TranslatePoint2D()
 
 
-void RotatePoint2D(Point2D* A, Point2D* B, float x){
+Point2D* RotatePoint2D(Point2D* A, Point2D* B, float x){
     assert(A!=NULL && B!=NULL);
-
-    Point2D* Anew = A;
+    
+    Point2D *Anew = malloc(sizeof(Point2D));
+    if(Anew==NULL)
+        return NULL;
+    
+    Anew = A;
+    
     float diff1 = A->x - B->x;
     float diff2 = A->y - B->y;
 
@@ -79,5 +88,7 @@ void RotatePoint2D(Point2D* A, Point2D* B, float x){
     A = Anew;
     
     free(Anew);
+
+    return A;
 
 }//end RotatePoint2D()

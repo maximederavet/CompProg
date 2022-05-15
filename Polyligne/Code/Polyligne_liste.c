@@ -83,6 +83,7 @@ void Open(Polyligne* P){
 void Close(Polyligne* P){   
     assert(P!=NULL);
 
+
     if(P->open==True)
         AddPoint(P, P->tete->data);
 
@@ -105,11 +106,26 @@ unsigned int NbrPoint(Polyligne* P){
 }//end NbrPoint()
 
 
+static Point2D* GetPointRec(cell* C, unsigned int numero){
+    assert(C!=NULL);
+
+    if(numero==0)
+        return(C->data);
+    else{       
+        return(GetPointRec(C->suiv, numero-1));
+    }
+}
+
+
 Point2D* GetPoint(Polyligne* P, unsigned int numero){
     assert(P!=NULL && numero < P->nbpoint);
 
-////////////////////////////////////////////////////////////
+    if(P->queue==NULL)
+        return NULL;
 
+    return GetPointRec(P->tete, numero);
+   
+    
 
 }//end GetPoint()
 
@@ -154,6 +170,9 @@ Polyligne* AddPoint(Polyligne* P, Point2D* A){
 Polyligne* SuppPoint(Polyligne* P){
     assert(P!=NULL);
 
+    if(P->queue==NULL)
+        return NULL;
+
     if(P->queue->prec == P->tete)
         P->open = False;
     else{
@@ -172,13 +191,16 @@ Polyligne* SuppPoint(Polyligne* P){
 
     P->queue->data = NULL;
     P->queue->prec = NULL;
+    P->queue->prec->suiv = NULL;
 
     P->queue = n_cell->prec;
 
     n_cell = NULL;
     free(n_cell);
 
-}
+    return P;
+
+}//end supp()
 
 
 float Length(Polyligne* P){
@@ -186,13 +208,23 @@ float Length(Polyligne* P){
     
     return(P->length);
 
+}//end length()
+
+
+static Polyligne* PolyTranslateRec(cell* C, Point2D* A){
+    assert(C!=NULL);
+
+
+
+    
 }
 
 
 Polyligne* PolyTranslate(Polyligne* P, Point2D* A){
+    assert(P!=NULL && A!=NULL);
 
+ 
 
-/////////////////////////////////////////////////////////////
 
 }
 
