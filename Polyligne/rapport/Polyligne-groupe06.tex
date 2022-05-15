@@ -159,16 +159,6 @@ struct Point2D{
  */
 Point2D* CreatePoint2D(float x, float y);
 /* 
- * @pre: (*\color{blue}{A != NULL $\land$ B != NULL}*)
- * @post: (*\color{blue}{$A=Translate_{(A, B)} \land B=B_0$}*)
- */
-void TranslatePoint2D(Point2D* A, Point2D* B);
-/* 
- * @pre: (*\color{blue}{A != NULL $\land$ B != NULL}*)
- * @post: (*\color{blue}{$A=Rotate_{(A, B), x} \land B=B_0 $}*)
- */
-void RotatePoint2D(Point2D* A, Point2D* B, float x);
-/* 
  * @pre: A != NULL
  * @post: (*$\color{blue}{A=A_0  \land }  get_x = x$ *)
  */
@@ -183,9 +173,18 @@ float get_y(Point2D* A);
  * @post: (*$ \color{blue}{A=A_0 \land B=B_0 \land  EuclDist = \sqrt{(X_a-X_b)+(Y_a-Y_b)} } $*)
  */
 unsigned float EuclDist(Point2D* A, Point2D* B);
+/* 
+ * @pre: (*\color{blue}{A != NULL $\land$ B != NULL}*)
+ * @post: (*\color{blue}{$A=Translate_{(A, B)} \land B=B_0$}*)
+ */
+void TranslatePoint2D(Point2D* A, Point2D* B);
+/* 
+ * @pre: (*\color{blue}{A != NULL $\land$ B != NULL}*)
+ * @post: (*\color{blue}{$A=Rotate_{(A, B), x} \land B=B_0 $}*)
+ */
+void RotatePoint2D(Point2D* A, Point2D* B, float x);
 \end{lstlisting}
 
-Dans le listing qui va suivre
 
 \section{TAD: Polyligne}
 
@@ -260,6 +259,10 @@ struct Polyline{
 };
 \end{lstlisting}
 
+L'image ci-dessous est le schéma correspondant à notre structure.
+
+\includegraphics[height=4cm, width=14cm]{tab1.png}
+
 \subsubsection{fonctions et procédures}
 
 \begin{lstlisting}[escapeinside={(*}{*)}]
@@ -306,17 +309,96 @@ void AddPoint2D(Polyline* P, Point2D* A);
  void SuppPoint2D(Polyline* P);
 \end{lstlisting}
 
+Les fonctions et procédures reprisent ci-dessus ne nécessitent pas d'invariant spécifique. On pourrait imaginer qu'il en faut un pour l'ajout et la suppression d'un point mais nous prenons la décision de n'ajouter et de supprimer que le dernier point à chaque appel de cet fonction. Le seul élément de l'ajout/la suppression d'un point qui pourrait encore nécessiter un invariant est le calcul de la longueur de la polyligne. Une fonction étant totalement dédiée à ce clacul, nous allons présenter l'invariant pour celle-ci. 
+
+\subsubsection{Invariant et spécifications: Length}
+
+\includegraphics[height=4cm, width=14cm]{inv1.png}
+
+(1): Length = $\sum_{x=0}^{i-2} EuclDist(A_x,Ax+1)$
+
+(2): Length à calculer
+
+\noindent L'invariant formel qui en découle est le suivant:
+
+\noindent$ pointArray = pointArray_0 \land \forall x, 0\leq x \leq i-2, Length =\sum_{x=0}^{i-2} EuclDist(A_x,Ax+1) \land arraySize = arraySize_0 \land nbpoint = nbpoint_0 $
+
+\smallskip
+
+
+
+\begin{lstlisting}[escapeinside={(*}{*)}]
+/*
+ * @pre: (*\color{blue}{ P != NULL}*)
+ * @post: (*\color{blue}{$P=P_0$ $\land$ $Length=\sum_{x=0}^{NbrPoint(P)-1} EuclDist(GetPoint(P,x),GetPoint(P,x+1)) $}
+ *)
+ */
+ float Length(Polyline* P);
+\end{lstlisting}
+
+\subsubsection{Invariant et spécifications: PolyTranslate}
+
+\includegraphics[height=4cm, width=14cm]{inv1.png}
+
+(1): La translation de chaque point est effectuée
+
+(2): Translation à appliquer sur les points restants
+
+\noindent L'invariant formel qui en découle est le suivant:
+
+\noindent$ \forall x, 0\leq x \leq i-1, A_x = Translate((A_x)_0, K)\footnote{K est le point de référence lors de cette Translation})  \land arraySize = arraySize_0 \land nbpoint = nbpoint_0 $
+
+\smallskip
+
+
+
+\begin{lstlisting}[escapeinside={(*}{*)}]
+/*
+ * @pre: (*\color{blue}{ $P != NULL \land K != NULL$} *)
+ * @post: (*\color{blue}{$P=P_0$ $\land$ $C=C_0 \land  \forall x, 0\leq x \leq i-1, A_x = Translate((A_x)_0, K)  $}
+ *)
+ */
+ void PolyTranslate(Polyligne* P, Point2D K);
+\end{lstlisting}
+
+
+\subsubsection{Invariant et spécifications: PolyRotate}
+
+\includegraphics[height=4cm, width=14cm]{inv1.png}
+
+(1): La rotation de chaque point est effectuée
+
+(2): Rotation à appliquer sur les points restants
+
+\noindent L'invariant formel qui en découle est le suivant:
+
+\noindent$ \forall x, 0\leq x \leq i-1, A_x = Rotate((A_x)_0, K)\footnote{K est le point de référence lors de cette Rotation})  \land arraySize = arraySize_0 \land nbpoint = nbpoint_0 $
+
+\smallskip
+
+\begin{lstlisting}[escapeinside={(*}{*)}]
+/*
+ * @pre: (*\color{blue}{ $P != NULL \land K != NULL$} *)
+ * @post: (*\color{blue}{$P=P_0$ $\land$ $C=C_0 \land  \forall x, 0\leq x \leq i-1, A_x = Rotate((A_x)_0, K)  $}
+ *)
+ */
+ void PolyRotate(ePolyligne* P, Point2D K);
+\end{lstlisting}
+
 \subsection{Implémentation par liste chainée}
 
 \subsubsection{structure}
 
 La structure Point2D est déjà définie plus haut mais il  est important de préciser qu'inclure cette structure(Point2D) dans une liste chaînée nécessite de définir une nouvelle structure. 
+
 \begin{lstlisting}
 struct Point{
-	2DPoint* point;
-	Point* next;
+    Point* prec;
+    2DPoint* point;
+    Point* suiv;
 };
 \end{lstlisting}
+
 
 Dans la liste chaînée gérant la polyligne, nous décidons de garder la longueur et le nombre de point dans une cellule d'en-tete afin d'y accéder plus facilement.
 \begin{lstlisting}
@@ -328,6 +410,49 @@ struct Polyline{
 };
 \end{lstlisting}
 
-\subsubsection{Fonctions et procéduress}
+Voici un schéma représentant le structure polyligne implémentée par une liste chaînée.
+
+\includegraphics[height=4cm, width=14cm]{schemalist.png}
+
+\subsubsection{Fonctions et procédures}
+
+Les spécifications des fonctions et des procédures sont semblables à l'implémentation par tableau, nous allons juste reprendre deux schémas qui expliquent le fonctionnement des fonctions qui nécessitaient un invariant. Deux schémas et non trois car la longueur de notre polyligne sera stockée dans la cellule d'en tëte de notre liste. Il ne sera donc plus nécessaire de parcourir toute la liste afin de la calculer
+
+\paragraph{AddPoint}
+\smallskip
+
+Souvenons nous que notre fonction d'ajout va ajouter notre nouveau point à la fin de la liste. les étapes pour cela seront les suivantes:
+\begin{itemize}
+    \item[1] Amener l'élément courant au dernier élément de  la liste
+    \item[2] Initialiser le champ "suiv" de la nouvelle cellule vers la première de la liste
+    \item[3] Initialiser le champ "prec" de la nouvelle cellule vers l'élément courant
+    \item[4] Stocker l'adresse de la nouvelle cellule dans dans le champ "suiv" de l'élément courant
+    \item[5] Stocker l'adresse de la nouvelle cellule dans le champ "prec" du premier élément de la liste
+\end{itemize}
+
+\includegraphics[height=4cm, width=14cm]{schemaadd.png}
+
+
+\paragraph{SuppPoint}
+\smallskip
+
+Souvenons nous que notre fonction d'ajout va ajouter notre nouveau point à la fin de la liste. les étapes pour cela seront les suivantes:
+\begin{itemize}
+    \item[1] Amener l'élément courant au dernier élément de  la liste
+    \item[2] Changer le champ "suiv" de l'avant dernier élément pour le champ "suiv" de l'élément courant
+    \item[3] Initialiser le champ "prec" du premier élément pour le champ "prec" de l'élément courant
+    \item[4] supprimer l'élément courant
+\end{itemize}
+
+
+
+
+\includegraphics[height=4cm, width=14cm]{schemasupp.png}
+
+\section{Complexité}
+
+
+
+\section{Comparaison des implémentations}
 
 \end{document}
