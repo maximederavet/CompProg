@@ -142,7 +142,6 @@ Polyligne* AddPoint(Polyligne* P, Point2D* A){
 Polyligne* SuppPoint(Polyligne* P){
     assert(P!=NULL);
 
-///////////////free mieux que égaler à NULL?//////////////////////
     P->pointArray[P->nbpoint - 1] = NULL;
     P->nbpoint -= 1;
     P->open = True;
@@ -169,10 +168,10 @@ float Length(Polyligne* P){
 
 Polyligne* PolyTranslate(Polyligne* P, Point2D* A){
     assert(P!=NULL && A!=NULL);
-
+    
     for(unsigned int i=0; i<P->nbpoint; i++){
 
-        TranslatePoint2D(P->pointArray[i], A);
+        P->pointArray[i] = TranslatePoint2D(P->pointArray[i], A);
     };
 
     return P;
@@ -185,7 +184,7 @@ Polyligne* PolyRotate(Polyligne* P, Point2D* A, float x){
 
     for(unsigned int i=0; i<P->nbpoint; i++){
 
-        RotatePoint2D(P->pointArray[i], A, x);
+        P->pointArray[i] = RotatePoint2D(P->pointArray[i], A, x);
     };
 
     return P;
