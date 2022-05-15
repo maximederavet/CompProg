@@ -113,7 +113,7 @@ p(x) est un prédicat déjà défini
 $Zone\_utile(T_{0},  N)  \equiv \#j \cdot (0\leq j < N|  p(T_{0}[j]))  $
 \\
 \\
-$Filtrage(T_{0}, N,taille\_utile)\equiv \forall j, 0 \leq j < taille\_utile, p(T_{0}[j])$\\
+$Filtrage(T_{0}, N,taille\_utile)\equiv \forall j, 0 \leq j < taille\_utile < N, p(T_{0}[j])$\\
 \\
 $Zone\_morte(T, N,taille\_utile)\equiv \forall j, taille\_utile \leq j < N, T[j] = 0$ 
 \\
@@ -127,7 +127,7 @@ $Sous\_suite(T_0, taille\_utile, T, N)\equiv (\forall k, 1 \leq k < taille\_util
 \begin{lstlisting}
 /**
  *
- * @préconditions : (>\coms{ $ \forall T[i], 0 \leq i < N, T[i] \in \mathbb{Z}
+ * @préconditions : (>\coms{ $ \forall i, 0 \leq i < N, T[i] \in \mathbb{Z}
                     \land
                     N > 0$  }<)
  * @postconditions : (>\coms{ $ N=N_0
@@ -146,7 +146,7 @@ int filtrer(int *T, int N);
 SP0 : Parcours du tableau et vérification de  $p(\cdot)$ pour chaque valeur
 \\SP1 : Si p n'est pas vérifié, on place un 0 dans la case actuelle, et on continue le parcours du tableau
 \\SP2 : Si p est vérifié, on vérifie si on a déjà rencontré des valeurs qui ne vérifient pas p
-\\SP2.1 : si c'est le cas, alors on met la valeur actuelle dans la case à l'index taille\_utile, puis 0 dans la case actuelle. On incrément taille\_utile. On poursuis la boucle ensuite
+\\SP2.1 : Si c'est le cas, alors on met la valeur actuelle dans la case à l'index taille\_utile, puis 0 dans la case actuelle. On incrément taille\_utile. On poursuit la boucle ensuite
 \\SP2.2. Si on n'a pas encore rencontré de valeur ne vérifiant pas p, alors on incrémente taille\_utile, et on poursuis la boucle. 
 
 $SP0 \supset (SP1, SP2 \supset (SP2.1, SP2.2))$
@@ -217,16 +217,16 @@ else{//SP0
 \begin{lstlisting}
 int filtrer(int *T, int N){
     assert(T != NULL && N >0);
-    // $\forall T[i], 0 \leq i < N, T[i] \in \mathbb{Z} \land N < 0 $
+    // $\forall i, 0 \leq i < N, T[i] \in \mathbb{Z} \land N < 0 $
     int i= 0;
     int taille_utile = 0;
-    // $\forall T[i], 0 \leq i < N, T[i] \in \mathbb{Z} \land N < 0 \land i = 0 \land taille\_utile = 0 $ 
+    // $\forall i, 0 \leq i < N, T[i] \in \mathbb{Z} \land N < 0 \land i = 0 \land taille\_utile = 0 $ 
 
     // $ N = N_{0} $
     // $ \land $
     // $0 \leq taille\_utile \leq i < N $
     // $ \land $
-    // $ \forall x, 0 \leq x < taille\_utile, Filtrage(T_{0}, N, taille\_utile),  Sous\_Suite(T_{0}, taille\_utile, T, N) $
+    // $ \forall x, 0 \leq x < taille\_utile, Filtrage(T_{0}, i, taille\_utile),  Sous\_Suite(T_{0}, taille\_utile, T, i) $
     // $ \land $
     // $ \forall y, taille\_utile \leq y<i, Zone\_morte(T, i, taille\_utile) $
     while(i<N){
@@ -262,12 +262,14 @@ int filtrer(int *T, int N){
                 // $ \land $
                 // $ taille\_utile \neq i $
             }else{
-            // $ Filtrage(T_{0}, i-1, taille\_utile-1) \land  Zone\_Morte(T, i-1, taille\_utile-1)$
+            // $ Filtrage(T_{0}, i, taille\_utile) \land  Zone\_Morte(T, i, taille\_utile)$
             // $ \land $
             // $ p(T[i]) \land taille\_utile = i $
                 taille_utile++;
                 i++;
-                //HHHHHHHHHHHEEEEEEEEEEEERRRRRRRRRREEEEEEEEEE
+                // $ Filtrage(T_{0}, i-1, taille\_utile-1) \land  Zone\_Morte(T, i-1, taille\_utile-1)$
+                // $ \land $
+                // $ p(T[i]) \land taille\_utile = i $
             }
         }
     }//fin while
@@ -328,7 +330,7 @@ while(i<N){
         }
     }//fin while
 \end{lstlisting}
-Selon la règle 5, la complexité d'une boucle $while$, est la complexité du contenu multipliée par le nombre de tours.
+Selon la règle 5, la complexité d'une boucle $while$ est la complexité du contenu multipliée par le nombre de tours.
 
 Intéressons-nous donc au contenu: 
 Pour commencer, nous avons une première structure $if$ $else$. Sous le premier $if$ se trouvent uniquement des affectations et incrémentations de variables. Selon la règle 2, la complexité théorique est donc $T_1(n)$. 
@@ -336,7 +338,7 @@ Pour commencer, nous avons une première structure $if$ $else$. Sous le premier 
 
 Ensuite, sous le premier $else$, se trouve une deuxième structure $if$ $else$. Regardons ce qu'il s'y trouve:
 
-Encore une fois, sous le second $if$, se trouvent uniquement des opérations d'incrémentations et d'affectations de variables. La complexité théorique est $T\_3(n)$(selon la règle 2). 
+Encore une fois, sous le second $if$, se trouvent uniquement des opérations d'incrémentations et d'affectations de variables. La complexité théorique est $T_3(n)$(selon la règle 2). 
 
 Sous le second $else$, de nouveau, seulement des incrémentations de variables, et donc une complexité théorique $T_4(n)$ (selon la règle 2). 
 
