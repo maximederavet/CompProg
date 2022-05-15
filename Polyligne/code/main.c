@@ -33,10 +33,14 @@ int main(){
 
 
     Polyligne* P1 = CreatePolyligne(a,c);
-    Open(P1);
-    Close(P1);
+    //Open(P1);
+    //Close(P1);
+
+
 
     int nb = NbrPoint(P1);
+    printf("nombre de points = %u\n", nb);
+
     for(int i = 0; i<nb; i++){
     printf("point[%u]:(%f,%f)\n", i, get_x(GetPoint(P1,i)),get_y(GetPoint(P1,i)));
     }
@@ -70,10 +74,8 @@ int main(){
     printf("longueur = %f\n", lon);
 
     SuppPoint(P1);
-
-    
-
     SuppPoint(P1);
+
     nb = NbrPoint(P1);
 
     for(int i = 0; i<nb; i++){

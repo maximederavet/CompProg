@@ -33,7 +33,7 @@ struct Polyligne_t{
 
 
 
-static Polyligne* create_senti(void){
+static Polyligne* create_senti(){
     Polyligne* senti = malloc(sizeof(Polyligne));
     if(senti==NULL)
         return NULL;
@@ -47,6 +47,20 @@ static Polyligne* create_senti(void){
     return senti;
 
 }//end create_senti()
+
+
+static cell* CreateCell(){
+    cell *n_cell = malloc(sizeof(cell));
+    if(n_cell==NULL)
+        return NULL;
+    
+    n_cell->prec = NULL;
+    n_cell->data = NULL;
+    n_cell->suiv = NULL;
+
+    return n_cell;
+
+}//end CreateCell()
 
 
 
@@ -107,7 +121,7 @@ unsigned int NbrPoint(Polyligne* P){
 
 
 static Point2D* GetPointRec(cell* C, unsigned int numero){
-    assert(C!=NULL);
+    
 
     if(numero==0)
         return(C->data);
@@ -130,24 +144,26 @@ Point2D* GetPoint(Polyligne* P, unsigned int numero){
 }//end GetPoint()
 
 
+
+
 Polyligne* AddPoint(Polyligne* P, Point2D* A){
     assert(P!=NULL && A!= NULL);
 
-    cell *n_cell = malloc(sizeof(cell));
-    if(n_cell==NULL)
-        return NULL;
-    
-    n_cell->prec = NULL;
+   
+    cell* n_cell = CreateCell();
+   
     n_cell->data = A;
-    n_cell->suiv = NULL;
+   
     
 
     if(P->queue == NULL){
         P->queue = n_cell;
         P->tete = n_cell;
+        P->queue->prec = P->tete;
     }
     else{
         P->queue->suiv = n_cell;
+        //P->length += EuclDist(P->queue->data,n_cell->data);
         n_cell->prec = P->queue;
         P->queue = n_cell;
     }
@@ -161,6 +177,7 @@ Polyligne* AddPoint(Polyligne* P, Point2D* A){
     else{
         P->open = True;
     }
+
 
     return P;
 
@@ -183,20 +200,16 @@ Polyligne* SuppPoint(Polyligne* P){
     P->length -= EuclDist(P->queue->prec->data, P->queue->data);
     P->nbpoint -=1;
 
-    cell *n_cell = malloc(sizeof(cell));
-    if(n_cell==NULL)
-        return NULL;
-    
+    cell *n_cell = CreateCell();
+
     n_cell = P->queue;
 
     P->queue->data = NULL;
-    P->queue->prec = NULL;
     P->queue->prec->suiv = NULL;
+    P->queue->prec = NULL;
 
     P->queue = n_cell->prec;
 
-    n_cell = NULL;
-    free(n_cell);
 
     return P;
 
