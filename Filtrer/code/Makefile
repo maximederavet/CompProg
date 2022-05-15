@@ -13,7 +13,7 @@ LD=gcc
 LDFLAGS=
 
 # Files
-EXEC=exec
+EXEC=filtrer
 MODULES=main.c filtrer.c propriete.c
 OBJECTS=main.o filtrer.o propriete.o
 
@@ -21,7 +21,7 @@ OBJECTS=main.o filtrer.o propriete.o
 
 all: $(EXEC)
 
-exec: $(OBJECTS)
+filtrer: $(OBJECTS)
 	$(LD) -o $(EXEC) $(OBJECTS) $(LDFLAGS)
 
 main.o: main.c
