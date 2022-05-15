@@ -8,6 +8,9 @@ test_list:
 	cd code; make test_list
 	cd rapport; make all
 
+rapport:
+	cd rapport; make all
+
 clean:
 	cd code; make clean
 	cd rapport; make clean

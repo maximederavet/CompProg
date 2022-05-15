@@ -1,0 +1,15 @@
+\babel@toc {french}{}
+\contentsline {section}{\numberline {1}TAD: Point2D}{3}%
+\contentsline {subsection}{\numberline {1.1}Signature}{3}%
+\contentsline {subsection}{\numberline {1.2}Sémantique}{3}%
+\contentsline {subsection}{\numberline {1.3}Structure}{3}%
+\contentsline {subsection}{\numberline {1.4}Focntions et procédures}{3}%
+\contentsline {section}{\numberline {2}TAD: Polyligne}{4}%
+\contentsline {subsection}{\numberline {2.1}Signature}{4}%
+\contentsline {subsection}{\numberline {2.2}Sémantique}{4}%
+\contentsline {subsection}{\numberline {2.3}Implémentation par tableau}{5}%
+\contentsline {subsubsection}{\numberline {2.3.1}Structure}{5}%
+\contentsline {subsubsection}{\numberline {2.3.2}fonctions et procédures}{5}%
+\contentsline {subsection}{\numberline {2.4}Implémentation par liste chainée}{6}%
+\contentsline {subsubsection}{\numberline {2.4.1}structure}{6}%
+\contentsline {subsubsection}{\numberline {2.4.2}Fonctions et procéduress}{6}%
