@@ -250,13 +250,13 @@ Polyligne* PolyTranslate(Polyligne* P, Point2D* A){
 }//end PolyTranslate()
 
 
-static Polyligne* PolyRotateRec(Polyligne* P,cell* C, Point2D* A){
+static Polyligne* PolyRotateRec(Polyligne* P,cell* C, Point2D* A, float x){
     assert(C!=NULL);
 
-     C->data = RotatePoint2D(C->data, A);
+     C->data = RotatePoint2D(C->data, A, x);
 
     if(C->next!=NULL)
-        return PolyRotateteRec(P, C->next,A);
+        return PolyRotateteRec(P, C->next, A, x);
     else{
         return P;
     }
