@@ -73,7 +73,7 @@
 
 %%%%%%%%%%%%%%%%% TITRE %%%%%%%%%%%%%%%%
 % Complétez et décommentez les définitions de macros suivantes :
-\newcommand{\intitule}{Polylignes, Milestone 1}
+\newcommand{\intitule}{Polylignes}
 \newcommand{\GrNbr}{06}
 \newcommand{\PrenomUN}{Maxime}
 \newcommand{\NomUN}{Deravet}
@@ -97,6 +97,8 @@
 
 %%%%%%%%%%%%%%%% RAPPORT %%%%%%%%%%%%%%%
 % Écrivez votre rapport ci-dessous.
+\section{Remarque sur la compréhension du problème}
+Nous nous sommes retrouvez face à une divergence de compréhension sur ce que voulais dire fermer/ouvrir une polyligne. Après une  longue discussion à ce sujet, nous avons décidé que pour nous, fermer une polyligne ne consistait pas juste à relier la cellule du dernier point à la cellule du premier point mais bien à AJOUTER un point en fin de liste ayant LES MEMES coordonnées que le premier point. Cela nous permet d'ajouter un nouveau point à une polyligne déjà fermée par exemple. Il est important de comprendre notre vision de la chose pour comprendre comment fonctionne nos implémentations.
 
 
 \section{TAD: Point2D}
@@ -147,7 +149,7 @@ struct Point2D{
 };
 \end{lstlisting}
 
-\subsection{Focntions et procédures}
+\subsection{Fonctions et procédures}
 
 \begin{lstlisting}[escapeinside={(*}{*)}]
 
@@ -160,12 +162,12 @@ struct Point2D{
 Point2D* CreatePoint2D(float x, float y);
 /* 
  * @pre: A != NULL
- * @post: (*$\color{blue}{A=A_0  \land }  get_x = x$ *)
+ * @post: (*$\color{blue}{A=A_0  \land }  get_x = A->x$ *)
  */
 float get_x(Point2D* A);
 /* 
  * @pre: A != NULL
- * @post: (*$\color{blue}{A=A_0  \land }  get_y = y$ *)
+ * @post: (*$\color{blue}{A=A_0  \land }  get_y = A->y$ *)
  */
 float get_y(Point2D* A);
 /* 
@@ -251,7 +253,7 @@ void RotatePoint2D(Point2D* A, Point2D* B, float x);
 \subsubsection{Structure}
 
 \begin{lstlisting}
-struct Polyline{
+struct Polyligne{
 	boolean open;
 	unsigned nbpoint;
 	unsigned arraySize;
@@ -263,57 +265,57 @@ L'image ci-dessous est le schéma correspondant à notre structure.
 
 \includegraphics[height=4cm, width=14cm]{tab1.png}
 
-\subsubsection{fonctions et procédures}
+\subsubsection{Fonctions et procédures}
 
 \begin{lstlisting}[escapeinside={(*}{*)}]
 /* 
- * @pre: A != NULL (*\color{blue}{$\land$} B != NULL \color{blue}{$\land$}*)
- * @post: (*\color{blue}{$A=A_0$ $\land$ $B=B_0$ $\land$ open=open $\land$ create\_Polyligne = P $\land$ }*)
- * (*\color{blue}{nbpoint(P) = NbrPoint(P) $\land$ length(P) = Length(P)}*)
+ * @pre: (*\color{blue}{A != NULL $\land$ B != NULL $\land A != NULL$}*)
+ * @post: (*\color{blue}{$A=A_0$ $\land$ $B=B_0$ $\land$ P->open=True $\land$ create\_Polyligne(P) = P $\land$ }*)
+ * (*\color{blue}{P->nbpoint = NbrPoint(P) }*)
  */
-Polyline* CreatePolyline(Point2D* A, Point2D* B, boolean open);
+Polyligne* CreatePolyligne(Point2D* A, Point2D* B);
 /* 
- * @pre: P != NULL 
- * @post: (*\color{blue}{$P=P_0$ $\land$ open = False $\land$  $nbpoint = nbpoint_0 $*)
+ * @pre: (*\color{blue}{P != NULL}*)
+ * @post: (*\color{blue}{$P=P_0$ $\land$ P->open = True $\land$  $P->nbpoint = P_0->nbpoint - 1 $*)
  */
-void Open(Polyline* P);
+void Open(Polyligne* P);
 /* 
- * @pre: P != NULL 
- * @post: (*\color{blue}{$P=P_0$ $\land$ open(P) = True $\land$ $nbpoint = nbpoint_0 $ *)
+ * @pre: (*\color{blue}{P != NULL }*)
+ * @post: (*\color{blue}{$P=P_0$ $\land$ P->open = False $\land$ $P->nbpoint = P_0->nbpoint +1 $ *)
  */
-void Close(Polyline* P);
+void Close(Polyligne* P);
 /* 
- * @pre: P != NULL 
- * @post: (*\color{blue}{$P=P_0$ $\land$*)
+ * @pre: (*\color{blue}{P != NULL }*)
+ * @post: (*\color{blue}{$P=P_0$ $\land$ IsOpen(P)=P->open*)
  */
-void IsOpen(Polyline* P);
+void IsOpen(Polyligne* P);
 /* 
- * @pre: P != NULL
- * @post: (*\color{blue}{P=P$_0$ $\land$} nbpoint = NbrPoint(P) *)
+ * @pre: (*\color{blue}{P != NULL }*)
+ * @post: (*\color{blue}{$P=P_0$ $\land$} NbrPoint(P) = P->nbpoint *)
  */
-unsigned NbrPoint(Polyline* P);
+unsigned NbrPoint(Polyligne* P);
 /* 
- * @pre: (*\color{blue}{$P != NULL  \land$ } numero < nbpoint*)
- * @post: (*$\color{blue}{P=P_0 \land} GetPoint = {A_{numero}}$*)
+ * @pre: (*\color{blue}{P != NULL  $\land$  number < nbpoint }*)
+ * @post: (*\color{blue}{$P=P_0 \land GetPoint(P) = {A_{number}} $}*)
  */
-Point2D GetPoint(Polyline* P, unsigned numero);
+Point2D GetPoint(Polyligne* P, unsigned number);
 /*
  * @pre: (*\color{blue}{ P != NULL $\land$ A != NULL }*)
- * @post: (*\color{blue}{$A=A_0$ $\land$ $open =open_0$ $\land$} \color{blue}{$nbpoint = nbpoint_0 + 1$  *)
+ * @post: (*\color{blue}{$A=A_0$ $\land$} \color{blue}{$P->nbpoint = P_0->nbpoint + 1$  *)
  */
-void AddPoint2D(Polyline* P, Point2D* A);
+void AddPoint2D(Polyligne* P, Point2D* A);
 /*
  * @pre: (*\color{blue}{ P != NULL $\land$ A != NULL }*)
- * @post: (*\color{blue}{$A=A_0$ $\land$ $open =open_0$ $\land$} \color{blue}{$nbpoint = nbpoint_0 - 1$  *)
+ * @post: (*\color{blue}{$A=A_0 \land P->nbpoint = P->nbpoint - 1 $}*)
  */
- void SuppPoint2D(Polyline* P);
+void DeletePoint2D(Polyligne* P);
 \end{lstlisting}
 
-Les fonctions et procédures reprisent ci-dessus ne nécessitent pas d'invariant spécifique. On pourrait imaginer qu'il en faut un pour l'ajout et la suppression d'un point mais nous prenons la décision de n'ajouter et de supprimer que le dernier point à chaque appel de cet fonction. Le seul élément de l'ajout/la suppression d'un point qui pourrait encore nécessiter un invariant est le calcul de la longueur de la polyligne. Une fonction étant totalement dédiée à ce clacul, nous allons présenter l'invariant pour celle-ci. 
+Les fonctions et procédures reprisent ci-dessus ne nécessitent pas d'invariant spécifique. On pourrait imaginer qu'il en faut un pour l'ajout et la suppression d'un point mais nous prenons la décision de n'ajouter et de supprimer que le dernier point à chaque appel de cette fonction. 
 
 \subsubsection{Invariant et spécifications: Length}
 
-\includegraphics[height=4cm, width=14cm]{inv1.png}
+\includegraphics[scale=0.8]{inv1.png}
 
 (1): Length = $\sum_{x=0}^{i-2} EuclDist(A_x,Ax+1)$
 
@@ -330,15 +332,15 @@ Les fonctions et procédures reprisent ci-dessus ne nécessitent pas d'invariant
 \begin{lstlisting}[escapeinside={(*}{*)}]
 /*
  * @pre: (*\color{blue}{ P != NULL}*)
- * @post: (*\color{blue}{$P=P_0$ $\land$ $Length=\sum_{x=0}^{NbrPoint(P)-1} EuclDist(GetPoint(P,x),GetPoint(P,x+1)) $}
+ * @post: (*\color{blue}{$P=P_0$ $\land$ $Length(P)=\sum_{x=0}^{NbrPoint(P)-2} EuclDist(GetPoint(P,x),GetPoint(P,x+1)) \land P->open = P_0->open \land P->nbpoint = P_0->nbpoint$}
  *)
  */
- float Length(Polyline* P);
+ float Length(Polyligne* P);
 \end{lstlisting}
 
 \subsubsection{Invariant et spécifications: PolyTranslate}
 
-\includegraphics[height=4cm, width=14cm]{inv1.png}
+\includegraphics[scale=0.8]{inv1.png}
 
 (1): La translation de chaque point est effectuée
 
@@ -355,16 +357,16 @@ Les fonctions et procédures reprisent ci-dessus ne nécessitent pas d'invariant
 \begin{lstlisting}[escapeinside={(*}{*)}]
 /*
  * @pre: (*\color{blue}{ $P != NULL \land K != NULL$} *)
- * @post: (*\color{blue}{$P=P_0$ $\land$ $C=C_0 \land  \forall x, 0\leq x \leq i-1, A_x = Translate((A_x)_0, K)  $}
+ * @post: (*\color{blue}{$P=P_0$ $\land$ $K=K_0 \land  \forall x, 0\leq x \leq P-> nbpoint-1, A_x = Translate((A_x), K)  $}
  *)
  */
- void PolyTranslate(Polyligne* P, Point2D K);
+ Polyligne* PolyTranslate(Polyligne* P, Point2D K);
 \end{lstlisting}
 
 
 \subsubsection{Invariant et spécifications: PolyRotate}
 
-\includegraphics[height=4cm, width=14cm]{inv1.png}
+\includegraphics[scale=0.8]{inv1.png}
 
 (1): La rotation de chaque point est effectuée
 
@@ -372,47 +374,49 @@ Les fonctions et procédures reprisent ci-dessus ne nécessitent pas d'invariant
 
 \noindent L'invariant formel qui en découle est le suivant:
 
-\noindent$ \forall x, 0\leq x \leq i-1, A_x = Rotate((A_x)_0, K)\footnote{K est le point de référence lors de cette Rotation})  \land arraySize = arraySize_0 \land nbpoint = nbpoint_0 $
+\noindent$ \forall x, 0\leq x \leq i-1, A_x = Rotate((A_x)_0, K, u)\footnote{K est le point de référence lors de cette Rotation et u est l'anglede référence de cette rotation})  \land arraySize = arraySize_0 \land nbpoint = nbpoint_0 $
 
 \smallskip
 
 \begin{lstlisting}[escapeinside={(*}{*)}]
 /*
  * @pre: (*\color{blue}{ $P != NULL \land K != NULL$} *)
- * @post: (*\color{blue}{$P=P_0$ $\land$ $C=C_0 \land  \forall x, 0\leq x \leq i-1, A_x = Rotate((A_x)_0, K)  $}
+ * @post: (*\color{blue}{$P=P_0$ $\land$ $K=K_0 \land u = u_0\land  \forall x, 0\leq x \leq P->nbpoint-1, A_x = Rotate(A_x, K, u)  $}
  *)
  */
- void PolyRotate(ePolyligne* P, Point2D K);
+ Polyligne* PolyRotate(Polyligne* P, Point2D K, float u);
 \end{lstlisting}
 
 \subsection{Implémentation par liste chainée}
 
-\subsubsection{structure}
+\subsubsection{Structure}
 
-La structure Point2D est déjà définie plus haut mais il  est important de préciser qu'inclure cette structure(Point2D) dans une liste chaînée nécessite de définir une nouvelle structure. 
+La structure Point2D est déjà définie plus haut mais il  est important de préciser qu'inclure cette structure(Point2D) dans une liste chaînée nécessite de définir une nouvelle structure représentant chaque cellule au sein de la liste. Notre liste est doublement chaînée ce qui implique que chaque cellule à un pointeur vers la cellule suivant mais aussi un pointeur vers la cellule précédente. 
 
 \begin{lstlisting}
-struct Point{
-    Point* prec;
-    2DPoint* point;
-    Point* suiv;
+struct cell_t{
+    cell* prev;
+    Point2D *data;
+    cell* next;
+
 };
 \end{lstlisting}
 
 
-Dans la liste chaînée gérant la polyligne, nous décidons de garder la longueur et le nombre de point dans une cellule d'en-tete afin d'y accéder plus facilement.
+Nous décidons de donner une cellule d'en-tête à notre liste afin d'avoir accès à des données utiles comme la longueur de la polyligne, le nombre de points qui la composent et l'état d'ouverture. Dans cette cellule d'en-tête, nous mettons nos accès à notre liste: Un pointeur vers la première cellule (head) et un pointeur vers la dernière cellule (tail). 
 \begin{lstlisting}
-struct Polyline{
-	char open;
-	unsigned nbrpoint;
-	unsigned float length;
-	Point* head;
+struct Polyligne_t{
+    Boolean open;
+    unsigned int nbpoint;
+    float length;
+    cell* head;
+    cell* tail;
 };
 \end{lstlisting}
 
 Voici un schéma représentant le structure polyligne implémentée par une liste chaînée.
 
-\includegraphics[height=4cm, width=14cm]{schemalist.png}
+\includegraphics[scale=0.7]{schemalist.png}
 
 \subsubsection{Fonctions et procédures}
 
@@ -421,38 +425,150 @@ Les spécifications des fonctions et des procédures sont semblables à l'implé
 \paragraph{AddPoint}
 \smallskip
 
-Souvenons nous que notre fonction d'ajout va ajouter notre nouveau point à la fin de la liste. les étapes pour cela seront les suivantes:
+Souvenons nous que notre fonction d'ajout va ajouter notre nouveau point à la fin de la liste. Les étapes pour cela seront les suivantes:
 \begin{itemize}
-    \item[1] Amener l'élément courant au dernier élément de  la liste
-    \item[2] Initialiser le champ "suiv" de la nouvelle cellule vers la première de la liste
-    \item[3] Initialiser le champ "prec" de la nouvelle cellule vers l'élément courant
-    \item[4] Stocker l'adresse de la nouvelle cellule dans dans le champ "suiv" de l'élément courant
-    \item[5] Stocker l'adresse de la nouvelle cellule dans le champ "prec" du premier élément de la liste
+    \item[1] copier le point entré en argument dans le champ utile d'une nouvelle cellule
+    \item[2] Initialiser le champ "next" de la denière cellule vers la nouvelle
+    \item[3] Initialiser le champ "prev" de la nouvelle cellule vers la dernière
+    \item[4] Stocker l'adresse de notre nouvelle cellule dans le pointeur de fin de la cellule d'en-tête(tail).
 \end{itemize}
 
-\includegraphics[height=4cm, width=14cm]{schemaadd.png}
+\includegraphics[scale=0.8]{Add.png}
 
 
 \paragraph{SuppPoint}
 \smallskip
 
-Souvenons nous que notre fonction d'ajout va ajouter notre nouveau point à la fin de la liste. les étapes pour cela seront les suivantes:
+Souvenons nous que notre fonction de suppression va supprimer le dernier point de la liste. les étapes pour cela seront les suivantes:
 \begin{itemize}
-    \item[1] Amener l'élément courant au dernier élément de  la liste
-    \item[2] Changer le champ "suiv" de l'avant dernier élément pour le champ "suiv" de l'élément courant
-    \item[3] Initialiser le champ "prec" du premier élément pour le champ "prec" de l'élément courant
-    \item[4] supprimer l'élément courant
+    \item[1] copier la dernière de la liste dans une nouvelle cellule
+    \item[2] vider le champ utile de la dernière cellule
+    \item[3] vider le champ "next" de la dernière cellule
+    \item[4] Stocker le champ "prev" de notre nouvelle cellule dans le pointeur de fin de la cellule d'en-tête(tail)
+    \item[5] supprimer la nouvelle cellule
 \end{itemize}
 
 
 
 
-\includegraphics[height=4cm, width=14cm]{schemasupp.png}
+\includegraphics[scale=0.7]{supp.png}
+
+\subsubsection{Justification des constructions récursives}
+
+
+
+\paragraph{GetPoint}
+
+Nous pouvons répondre à la première question de la construction récursive par l'affirmativee car la fonction GetPointRec(P, x) prend en entrée le point courant dans le parcours de la Polyligne mais aussi l'indice du point que l'on veut dans la polyligne. Cet indice semble parfait pour être notre paramètre récursif.
+
+Ce Paramètre étant un nombre, il est aisé de trouver un cas de base à notre problème: x=0.
+
+On peut exprimer récursivement le problème. Lorsque x est égal à 0, Il nous suffit de retourner le point courant passé en paramètre. Dans les autres cas, on rappelle la fonction avec l'indice diminué de 1.
+
+
+\paragraph{PolyTranslateRec ET PolyRotateRec}
+Ces deux fonction étant relativement semblable dans leur approche constructive, Nous les traiterons ensemble. Ces deux fonctions sont des fonctions pour lesquelles la récursivité nous sert à parcourir la polyligne. Le paramètre récursif est donc la cellule sur laquelle on applique la fonction. 
+
+Le cas de base est le cas où la cellule courante est la dernière cellule, à savoir, le cas où $C->next$ == NULL.
+
+Quand $C->next$ == NULL, nous appliquons la translation/rotation de type "point2d" sur le point courant. Dans les autre cas, nous rappelons notre fonction récursive avec la cellule suivante ($-next$) dans la polyligne. Notre problème est donc défini récursivement.
+
 
 \section{Complexité}
+Dans cette section nous allons uniquement nous intéresser aux processus dont la complexité change selon l'implémentation
+\subsection{GetPoint}
+\subsubsection{Implémentation par tableau}
+
+\begin{lstlisting}
+Point2D* GetPoint(Polyligne* P, unsigned int number){
+    assert(P!=NULL && number < P->nbpoint);
+
+    return P->pointArray[number];
+}//end GetPoint()
+\end{lstlisting}
+Ici, la complexité est triviale. Ce processus ne comporte que deux instructions. Elle est donc \textbf{constante} $(O(2))$ 
 
 
 
-\section{Comparaison des implémentations}
+\subsubsection{Implémentation par liste}
+En comparaison, le processus GetPoint pour l'implémentation sous forme de liste se définit comme suis: 
+
+\begin{lstlisting}
+static Point2D* GetPointRec(cell* C, unsigned int number){
+    if(number==0)
+        return(C->data);
+    else{       
+        return(GetPointRec(C->next, number-1));
+    }
+}
+
+Point2D* GetPoint(Polyligne* P, unsigned int number){
+    assert(P!=NULL && number < P->nbpoint);
+
+    if(P->tail==NULL)
+        return NULL;
+
+    return GetPointRec(P->head, number);
+}//end GetPoint()
+\end{lstlisting}
+La fonction appelée en premier est GetPoint. Cette dernière est de complexité constante car elle ne réalise qu’une simple comparaison, et un appel à une autre fonction GetPointRec. C’est cette fonction qui va  nous intéresser en particulier.
+
+\bigskip
+
+On y trouve une structure $if$  $else$. Sous le $if$, se cache le cas de base, qui est un unique \texttt{return}, de complexité 1.
+Ensuite sous le $else$, l’appel récursif.  L’appel se fait en diminuant à chaque fois l'argument \texttt{number} d’une seule unité. \texttt{number} étant le paramètre évalué pour déterminer le cas de base (number == 0) , le nombre d’appel sera toujours plus petitque  N le nombre d’élément dans notre polyligne. 
+La complexité de cette partie vaut donc  $O(N)$.
+Au total, nous avons une complexité \textbf{linéaire.} 
+
+
+
+\subsection{Lenght}
+\subsubsection{Implémentation par tableau}
+\begin{lstlisting}
+float Length(Polyligne* P){
+    assert(P!=NULL);
+
+    float length = 0;
+
+    for(unsigned int i=0; i<P->nbpoint-1; i++){
+        length += EuclDist(P->pointArray[i], P->pointArray[i+1]);
+    };
+
+    return length;
+}//end Length()
+\end{lstlisting}
+Cette fonctions ne contient que quelques instructions simples, et une boucle appelant $nbpoint-1$ fois la fonction \texttt{EuclDist}, qui permet de calculer la distance euclidienne entre deux points, et qui n'est composé que d'instructions simples elle aussi. 
+Au total nous obtenons donc :
+\begin{align}
+  O &= 2 + ((nbpoint-1) \times 1) + 1 \nonumber \\
+       &= (nbpoint-1) + 3 \nonumber \\
+\end{align}
+Borné par $O(nbpoint-1)$.
+\\La complexité est donc \textbf{linéaire}
+
+\subsubsection{Implémentation par liste}
+\begin{lstlisting}
+float Length(Polyligne* P){
+    assert(P!=NULL);
+    
+    return(P->length);
+}//end length()
+\end{lstlisting}
+La longueur de la polyligne étant stocké dans la cellule d'en-tête, et actualisé à chaque modification de la taille (ajout ou suppression d'un point), il nous suffit d'accéder à ce champ. 
+Il s'agit d'un instruction simple. La complexité est donc \textbf{constante}. $O(1)$
+
+\section{Tests unitaires}
+
+
+
+\section{Comparaison de la liste et du tableau.}
+
+Le Problème qui nous a le plus sauté aux yeux dans l'implémentation par tableau est la taille limitée et prédéfinie du tableau. 
+
+Etant limitée, nous devons en permanence vérifier que nous n'avons pas rempli le tableau quand on souhaite ajouter un nouveau point. Si c'est le cas, alors, nous devons faire appel à une fonction statique de ré-allocation de mémoire pour agrandir notre tableau
+
+De l'autre coté, le fait que la taille soit prédéfinie nous amène, la majorité du temps, à avoir des cases vides dans notre tableau comme on peut le voir dans le schéma représentant notre structure dans la section 3.3.5. Nous devons aussi tenir deux tailles à jour au lieu d'une seule: le nombre de point et la taille du tableau.
+
+L'implémentation par tableau a des inconvénients mais elle a aussi des avantages! Elle permet d'éviter la récursivité dans plusieurs fonction: la translation , la rotation, l'accesseur à un point. Dans le cas de l'accesseur, on voit même que cette implémentation permet de passer d'une complexité linéaire à une complexité constante.
 
 \end{document}
