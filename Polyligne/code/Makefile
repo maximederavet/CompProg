@@ -1,25 +1,25 @@
 include ../Makefile.compilation
 
-test_array: Point2D.o Polyligne_tab.o Polyligne_tab_test.o seatest.o
-	$(LD) -o Polyligne_tab_test Point2D.o Polyligne_tab.o Polyligne_tab_test.o seatest.o $(LDFLAGS)
+test_array: point2D.o polyligne_tableau.o polyligne_tableau_test.o seatest.o
+	$(LD) -o polyligne_tableau_test point2D.o polyligne_tableau.o polyligne_tableau_test.o seatest.o $(LDFLAGS)
 
-Polyligne_tab_test.o: Polyligne_tab_test.c
-	$(CC) -c Polyligne_tab_test.c -o Polyligne_tab_test.o $(CFLAGS)
+polyligne_tableau_test.o: polyligne_tableau_test.c
+	$(CC) -c polyligne_tableau_test.c -o polyligne_tableau_test.o $(CFLAGS)
 
-Polyligne_tab.o: Polyligne_tab.c Polyligne.h 
-	$(CC) -c Polyligne_tab.c -o Polyligne_tab.o $(CFLAGS)
+polyligne_tableau.o: polyligne_tableau.c polyligne.h 
+	$(CC) -c polyligne_tableau.c -o polyligne_tableau.o $(CFLAGS)
 
-test_list: Point2D.o Polyligne_liste.o Polyligne_liste_test.o seatest.o
-	$(LD) -o Polyligne_liste_test Point2D.o Polyligne_liste.o Polyligne_liste_test.o seatest.o $(LDFLAGS)
+test_list: point2D.o polyligne_liste.o polyligne_liste_test.o seatest.o
+	$(LD) -o polyligne_liste_test point2D.o polyligne_liste.o polyligne_liste_test.o seatest.o $(LDFLAGS)
 
-Polyligne_liste_test.o: Polyligne_liste_test.c
-	$(CC) -c Polyligne_liste_test.c -o Polyligne_liste_test.o $(CFLAGS)
+polyligne_liste_test.o: polyligne_liste_test.c
+	$(CC) -c polyligne_liste_test.c -o polyligne_liste_test.o $(CFLAGS)
 
-Polyligne_liste.o: Polyligne_liste.c Polyligne.h
-	$(CC) -c Polyligne_liste.c -o Polyligne_liste.o $(CFLAGS)
+polyligne_liste.o: polyligne_liste.c polyligne.h
+	$(CC) -c polyligne_liste.c -o polyligne_liste.o $(CFLAGS)
 
-Point2D.o: Point2D.c Point2D.h
-	$(CC) -c Point2D.c -o Point2D.o $(CFLAGS)
+point2D.o: point2D.c point2D.h
+	$(CC) -c point2D.c -o point2D.o $(CFLAGS)
 
 
 seatest.o: seatest.c seatest.h

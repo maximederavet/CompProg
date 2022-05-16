@@ -3,7 +3,7 @@
 #include <math.h>
 
 
-#include "Polyligne.h"
+#include "polyligne.h"
 
 #define INITIAL_SIZE 10
 #define REALLOCATION_FACTOR 2

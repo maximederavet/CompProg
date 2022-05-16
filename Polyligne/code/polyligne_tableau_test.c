@@ -8,8 +8,8 @@
  *
  */
 
-#include "Polyligne.h"
-#include "Point2D.h"
+#include "polyligne.h"
+#include "point2D.h"
 #include "seatest.h"
 #include <stdlib.h>
 #include <math.h>
@@ -112,6 +112,7 @@ static void test_fixture(){
 
   run_test(test_lenght);
   run_test(test_NbrPoint);
+  run_test(test_AddPoint);
 
   test_fixture_end();
 }
