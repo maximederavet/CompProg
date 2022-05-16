@@ -89,7 +89,7 @@ void Open(Polyligne* P){
     assert(P!=NULL);
 
     if(P->open==False)
-        SuppPoint(P);
+        DeletePoint(P);
 
 }//end Open()
 
@@ -184,7 +184,7 @@ Polyligne* AddPoint(Polyligne* P, Point2D* A){
 }//end add()
 
 
-Polyligne* SuppPoint(Polyligne* P){
+Polyligne* DeletePoint(Polyligne* P){
     assert(P!=NULL);
 
     if(P->tail==NULL)
@@ -213,7 +213,7 @@ Polyligne* SuppPoint(Polyligne* P){
 
     return P;
 
-}//end supp()
+}//end Delete()
 
 
 float Length(Polyligne* P){

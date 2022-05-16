@@ -26,4 +26,4 @@ seatest.o: seatest.c seatest.h
 	$(CC) -c seatest.c -o seatest.o $(CFLAGS)
 
 clean:
-	rm -f *.o test_array test_list
+	rm -f *.o test_array test_list -r doc
