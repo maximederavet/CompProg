@@ -10,6 +10,13 @@
 \contentsline {subsection}{\numberline {2.3}Implémentation par tableau}{5}%
 \contentsline {subsubsection}{\numberline {2.3.1}Structure}{5}%
 \contentsline {subsubsection}{\numberline {2.3.2}fonctions et procédures}{5}%
-\contentsline {subsection}{\numberline {2.4}Implémentation par liste chainée}{6}%
-\contentsline {subsubsection}{\numberline {2.4.1}structure}{6}%
-\contentsline {subsubsection}{\numberline {2.4.2}Fonctions et procéduress}{6}%
+\contentsline {subsubsection}{\numberline {2.3.3}Invariant et spécifications: Length}{6}%
+\contentsline {subsubsection}{\numberline {2.3.4}Invariant et spécifications: PolyTranslate}{7}%
+\contentsline {subsubsection}{\numberline {2.3.5}Invariant et spécifications: PolyRotate}{7}%
+\contentsline {subsection}{\numberline {2.4}Implémentation par liste chainée}{8}%
+\contentsline {subsubsection}{\numberline {2.4.1}structure}{8}%
+\contentsline {subsubsection}{\numberline {2.4.2}Fonctions et procédures}{8}%
+\contentsline {paragraph}{AddPoint}{8}%
+\contentsline {paragraph}{SuppPoint}{9}%
+\contentsline {section}{\numberline {3}Complexité}{9}%
+\contentsline {section}{\numberline {4}Comparaison des implémentations}{9}%

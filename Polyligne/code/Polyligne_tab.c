@@ -74,7 +74,7 @@ void Open(Polyligne* P){
 
     if(P->open != True){
         P->open = True;
-        SuppPoint(P);
+        DeletePoint(P);
     }
 
 }//end Open()
@@ -112,10 +112,10 @@ unsigned int NbrPoint(Polyligne* P){
 }//end NbrPoint()
 
 
-Point2D* GetPoint(Polyligne* P, unsigned int numero){
-    assert(P!=NULL && numero < P->nbpoint);
+Point2D* GetPoint(Polyligne* P, unsigned int number){
+    assert(P!=NULL && number < P->nbpoint);
 
-    return P->pointArray[numero];
+    return P->pointArray[number];
 
 }//end GetPoint()
 
@@ -139,7 +139,7 @@ Polyligne* AddPoint(Polyligne* P, Point2D* A){
 }//end AddPoint()
 
 
-Polyligne* SuppPoint(Polyligne* P){
+Polyligne* DeletePoint(Polyligne* P){
     assert(P!=NULL);
 
     P->pointArray[P->nbpoint - 1] = NULL;
@@ -147,7 +147,7 @@ Polyligne* SuppPoint(Polyligne* P){
     P->open = True;
 
     return P;
-//end SuppPoint()
+//end DeletePoint()
 }
 
 

@@ -25,7 +25,7 @@ static void test_lenght(){
    Polyligne* P1 = CreatePolyligne(a,b);
    float L1 = Length(P1);
 
-   //Ajout d'un point supplémentair
+   //Ajout d'un point supplémentaire
    P1 = AddPoint(P1, c);
    float L2 = Length(P1);
 
@@ -51,7 +51,7 @@ static void test_NbrPoint(){
    P1 = AddPoint(P1, d);
    unsigned int N3 = NbrPoint(P1);
 
-   P1 = SuppPoint(P1);
+   P1 = DeletePoint(P1);
    unsigned int N4 = NbrPoint(P1);
 
    assert_ulong_equal(2, N1);

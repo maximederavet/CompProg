@@ -11,9 +11,9 @@ static cell *create_cell(Point2D *data){
     if(n_cell==NULL)
         return NULL;
     
-    n_cell->prec = NULL;
+    n_cell->prev = NULL;
     n_cell->data = data;
-    n_cell->suiv = NULL;
+    n_cell->next = NULL;
     
     return n_cell;
 }//end create_cell()

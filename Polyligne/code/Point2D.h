@@ -19,7 +19,7 @@ typedef struct Point2D_t Point2D;
  * @param x, coordonnée X du point dans le plan
  * @param y, coordonnée Y du point dans le plan
  * 
- * 
+ *
  */
 Point2D* Create(float x, float y);
 

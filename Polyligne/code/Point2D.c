@@ -40,10 +40,10 @@ float get_y(Point2D *pt){
 float EuclDist(Point2D* A, Point2D* B){
     assert(A!=NULL && B!=NULL);
 
-    float carre1 = (A->x - B->x)*(A->x - B->x);
-    float carre2 = (A->y - B->y)*(A->y - B->y);
+    float square1 = (A->x - B->x)*(A->x - B->x);
+    float square2 = (A->y - B->y)*(A->y - B->y);
 
-    float dist = sqrt(carre1 + carre2);
+    float dist = sqrt(square1 + square2);
 
     return dist;
 

@@ -73,16 +73,16 @@ unsigned int NbrPoint(Polyligne* P);
 
 
 /**
- * @fn Point2D GetPoint(Polyligne* P, unsigned int numero);
- * @brief Donne le point se trouvant à l'indice "numero"
+ * @fn Point2D GetPoint(Polyligne* P, unsigned int number);
+ * @brief Donne le point se trouvant à l'indice "number"
  * 
  * @param P, La Polyligne contenant le point que l'on cherche
- * @param numero, L'indice auquel se trouve le point que l'on cherche
+ * @param number, L'indice auquel se trouve le point que l'on cherche
  * 
  * 
  * @return Le nombre de points de la polyligne 
  */
-Point2D* GetPoint(Polyligne* P, unsigned int numero);
+Point2D* GetPoint(Polyligne* P, unsigned int number);
 
 
 /**
@@ -99,7 +99,7 @@ Polyligne* AddPoint(Polyligne* P, Point2D* A);
 
 
 /**
- * @fn Polyligne SuppPoint(Polyligne* P);
+ * @fn Polyligne DeletePoint(Polyligne* P);
  * @brief Supprime le dernier point de la polyligne
  * 
  * @param P, La Polyligne à laquelle on veut supprimer un point
@@ -107,7 +107,7 @@ Polyligne* AddPoint(Polyligne* P, Point2D* A);
  * 
  * @return Le nombre de points de la polyligne 
  */
-Polyligne* SuppPoint(Polyligne* P);
+Polyligne* DeletePoint(Polyligne* P);
 
 
 /**
