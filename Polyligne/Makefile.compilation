@@ -3,4 +3,4 @@ LD=gcc
 CFLAGS=--std=c99 --pedantic -Wall -Wextra -Wmissing-prototypes 
 LDFLAGS= -lm
 LATEX=pdflatex
-RAPPORTSOURCE=Polyligne-groupe06
+RAPPORTSOURCE=polyligne-06
