@@ -120,24 +120,24 @@ unsigned int NbrPoint(Polyligne* P){
 }//end NbrPoint()
 
 
-static Point2D* GetPointRec(cell* C, unsigned int numero){
+static Point2D* GetPointRec(cell* C, unsigned int number){
     
 
-    if(numero==0)
+    if(number==0)
         return(C->data);
     else{       
-        return(GetPointRec(C->next, numero-1));
+        return(GetPointRec(C->next, number-1));
     }
 }
 
 
-Point2D* GetPoint(Polyligne* P, unsigned int numero){
-    assert(P!=NULL && numero < P->nbpoint);
+Point2D* GetPoint(Polyligne* P, unsigned int number){
+    assert(P!=NULL && number < P->nbpoint);
 
     if(P->tail==NULL)
         return NULL;
 
-    return GetPointRec(P->head, numero);
+    return GetPointRec(P->head, number);
    
     
 
