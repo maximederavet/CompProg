@@ -120,24 +120,24 @@ unsigned int NbrPoint(Polyligne* P){
 }//end NbrPoint()
 
 
-static Point2D* GetPointRec(cell* C, unsigned int number){
+static Point2D* GetPointRec(cell* C, unsigned int numero){
     
 
-    if(number==0)
+    if(numero==0)
         return(C->data);
     else{       
-        return(GetPointRec(C->next, number-1));
+        return(GetPointRec(C->next, numero-1));
     }
 }
 
 
-Point2D* GetPoint(Polyligne* P, unsigned int number){
-    assert(P!=NULL && number < P->nbpoint);
+Point2D* GetPoint(Polyligne* P, unsigned int numero){
+    assert(P!=NULL && numero < P->nbpoint);
 
     if(P->tail==NULL)
         return NULL;
 
-    return GetPointRec(P->head, number);
+    return GetPointRec(P->head, numero);
    
     
 
@@ -163,13 +163,12 @@ Polyligne* AddPoint(Polyligne* P, Point2D* A){
     }
     else{
         P->tail->next = n_cell;
-        //P->length += EuclDist(P->tail->data,n_cell->data);
+        P->length += EuclDist(P->tail->data,n_cell->data);
         n_cell->prev = P->tail;
         P->tail = n_cell;
     }
 
     P->nbpoint += 1;
-    P->length += EuclDist(P->tail->prev->data,P->tail->data);
     
 
     if(P->tail == P->head)
@@ -198,22 +197,25 @@ Polyligne* DeletePoint(Polyligne* P){
 
 
     P->length -= EuclDist(P->tail->prev->data, P->tail->data);
-    P->nbpoint -=1;
+    P->nbpoint -= 1;
 
     cell *n_cell = CreateCell();
 
     n_cell = P->tail;
 
+
     P->tail->data = NULL;
     P->tail->prev->next = NULL;
-    P->tail->prev = NULL;
 
     P->tail = n_cell->prev;
+
+    n_cell->prev = NULL;
+
 
 
     return P;
 
-}//end Delete()
+}//end delete()
 
 
 float Length(Polyligne* P){
@@ -235,28 +237,29 @@ static Polyligne* PolyTranslateRec(Polyligne* P,cell* C, Point2D* A){
         return P;
     }
     
-    
 }
 
 
 Polyligne* PolyTranslate(Polyligne* P, Point2D* A){
     assert(P!=NULL && A!=NULL);
+    
 
     if(P->tail == NULL)
         return NULL;
 
     return PolyTranslateRec(P, P->head, A);
 
-}//end PolyTranslate()
+}
 
 
-static Polyligne* PolyRotateRec(Polyligne* P,cell* C, Point2D* A, float x){
+static Polyligne* PolyRotateRec(Polyligne* P, cell* C, Point2D* A, float x){
     assert(C!=NULL);
 
-     C->data = RotatePoint2D(C->data, A, x);
+    C->data = RotatePoint2D(C->data, A, x);
 
-    if(C->next!=NULL)
-        return PolyRotateteRec(P, C->next, A, x);
+    if(C->next!=NULL){
+        return PolyRotateRec(P, C->next, A, x);
+    }
     else{
         return P;
     }
@@ -271,4 +274,5 @@ Polyligne* PolyRotate(Polyligne* P, Point2D* A, float x){
 
     return PolyRotateRec(P, P->head, A, x);
 
-}//end PolyRotate()
+   
+}
