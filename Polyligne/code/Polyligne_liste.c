@@ -224,17 +224,16 @@ float Length(Polyligne* P){
 }//end length()
 
 
-static void PolyTranslateRec(cell* C, Point2D* A){
+static Polyligne* PolyTranslateRec(Polyligne* P,cell* C, Point2D* A){
     assert(C!=NULL);
 
-    if(C->next!=NULL){
-        TranslatePoint2D(C->data, A);
-        PolyTranslateRec(C->next,A);
-    }
-    else{
-        TranslatePoint2D(C->data, A);
-    }
+    C->data = TranslatePoint2D(C->data, A);
 
+    if(C->next!=NULL)
+        return PolyTranslateRec(P, C->next,A);
+    else{
+        return P;
+    }
     
     
 }
@@ -246,22 +245,20 @@ Polyligne* PolyTranslate(Polyligne* P, Point2D* A){
     if(P->tail == NULL)
         return NULL;
 
-    PolyTranslateRec(P->head, A);
+    return PolyTranslateRec(P, P->head, A);
 
-    return P;
-
-}
+}//end PolyTranslate()
 
 
-static void PolyRotateRec(cell* C, Point2D* A, float x){
+static Polyligne* PolyRotateRec(Polyligne* P,cell* C, Point2D* A){
     assert(C!=NULL);
 
-    if(C->next!=NULL){
-        RotatePoint2D(C->data, A, x);
-        PolyRotateRec(C->next, A, x);
-    }
+     C->data = RotatePoint2D(C->data, A);
+
+    if(C->next!=NULL)
+        return PolyRotateteRec(P, C->next,A);
     else{
-        RotatePoint2D(C->data, A, x);
+        return P;
     }
 
 }
@@ -272,8 +269,6 @@ Polyligne* PolyRotate(Polyligne* P, Point2D* A, float x){
     if(P->tail == NULL)
         return NULL;
 
-    PolyRotateRec(P->head, A, x);
+    return PolyRotateRec(P, P->head, A, x);
 
-    return P;
-
-}
+}//end PolyRotate()
