@@ -79,15 +79,15 @@ static void test_AddPoint(){
    float Xa = get_x(a_test);
    float Ya = get_y(a_test);
 
-   Point2D *b_test = GetPoint(P1, 0);
+   Point2D *b_test = GetPoint(P1, 1);
    float Xb = get_x(b_test);
    float Yb = get_y(b_test);
 
-   Point2D *c_test = GetPoint(P1, 0);
+   Point2D *c_test = GetPoint(P1, 2);
    float Xc = get_x(c_test);
    float Yc = get_y(c_test);
 
-   Point2D *d_test = GetPoint(P1, 0);
+   Point2D *d_test = GetPoint(P1, 3);
    float Xd = get_x(d_test);
    float Yd = get_y(d_test);
 

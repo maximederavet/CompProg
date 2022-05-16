@@ -29,4 +29,4 @@ doc:
 	doxygen Doxyfile
 
 clean:
-	rm -f *.o test_array test_list -r doc
+	rm -f *.o polyligne_tableau_test polyligne_liste_test test_list -r doc
