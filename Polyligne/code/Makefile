@@ -25,5 +25,8 @@ Point2D.o: Point2D.c Point2D.h
 seatest.o: seatest.c seatest.h
 	$(CC) -c seatest.c -o seatest.o $(CFLAGS)
 
+doc:
+	doxygen Doxyfile
+
 clean:
 	rm -f *.o test_array test_list -r doc
