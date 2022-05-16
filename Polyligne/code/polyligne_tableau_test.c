@@ -9,7 +9,7 @@
  */
 
 #include "polyligne.h"
-#include "point2D.h"
+#include "point2d.h"
 #include "seatest.h"
 #include <stdlib.h>
 #include <math.h>

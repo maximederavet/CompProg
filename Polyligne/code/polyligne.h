@@ -2,7 +2,7 @@
 #define __POLYLIGNE__
 
 
-#include "point2D.h"
+#include "point2d.h"
 
 
 /**
